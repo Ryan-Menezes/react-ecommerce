@@ -1,5 +1,5 @@
-import { Product } from '../entities/Product';
-import { ProductRepository } from '../repositories/ProductRepository';
+import { Product } from '@src/entities/Product';
+import { ProductRepository } from '@src/repositories/ProductRepository';
 
 export interface GetProductsByCategoryRequest {
   category: string;
