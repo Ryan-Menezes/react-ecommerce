@@ -1,25 +1,18 @@
 import { Product } from '../entities/Product';
-import { ProductError } from '../errors/ProductError';
 import { ProductRepository } from '../repositories/ProductRepository';
 
-export interface GetProductByIdRequest {
-  id: string;
+export interface GetProductsByCategoryRequest {
+  category: string;
 }
 
-export type GetProductByIdResponse = Product;
+export type GetProductsByCategoryResponse = Product[];
 
-export class GetProductById {
+export class GetProductsByCategory {
   public constructor(private productRepository: ProductRepository) {}
 
   public async execute({
-    id,
-  }: GetProductByIdRequest): Promise<GetProductByIdResponse> {
-    const product = this.productRepository.findById(id);
-
-    if (product === null) {
-      throw new ProductError('There is no product with this id');
-    }
-
-    return product;
+    category,
+  }: GetProductsByCategoryRequest): Promise<GetProductsByCategoryResponse> {
+    return this.productRepository.findByCategory(category);
   }
 }
