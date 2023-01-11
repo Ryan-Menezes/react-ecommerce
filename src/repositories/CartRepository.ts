@@ -1,6 +1,6 @@
-import { Repository } from './Repository';
-import { CartItem } from '../entities/CartItem';
-import { EntityId } from '../entities/Entity';
+import { Repository } from '@src/repositories/Repository';
+import { CartItem } from '@src/entities/CartItem';
+import { EntityId } from '@src/entities/Entity';
 
 export interface CartRepository extends Repository<CartItem> {
   addItem(item: CartItem): void;
