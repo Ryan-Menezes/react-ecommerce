@@ -8,4 +8,5 @@ export interface CartRepository extends Repository<CartItem> {
   updateItemQuantity(id: EntityId, quantity: number): void;
   subtotal(id: EntityId): number;
   total(): number;
+  clear(): void;
 }

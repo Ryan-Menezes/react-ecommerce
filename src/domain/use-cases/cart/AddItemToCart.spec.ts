@@ -25,6 +25,7 @@ const makeCartRepositoryMock = () => {
     updateItemQuantity: jest.fn(),
     subtotal: jest.fn(),
     total: jest.fn(),
+    clear: jest.fn(),
   };
 
   return {
