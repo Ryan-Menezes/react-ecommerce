@@ -31,20 +31,20 @@ const makeSut = () => {
 describe('RemoveItemToCart', () => {
   it('should remove item to cart', async () => {
     const { cartRepository, sut } = makeSut();
-    const params = { id: 'any-id' };
+    const req = { id: 'any-id' };
 
-    await sut.execute(params);
+    await sut.execute(req);
 
     expect(cartRepository.removeItem).toBeCalledTimes(1);
-    expect(cartRepository.removeItem).toBeCalledWith(params.id);
+    expect(cartRepository.removeItem).toBeCalledWith(req.id);
   });
 
   it('should throw an error if the item does not exist in the cart', async () => {
     const { cartRepository, sut } = makeSut();
-    const params = { id: 'invalid-id' };
+    const req = { id: 'invalid-id' };
     cartRepository.findById = jest.fn((id) => null);
 
-    const promise = sut.execute(params);
+    const promise = sut.execute(req);
 
     await expect(promise).rejects.toThrow(ItemNotFoundError);
     expect(cartRepository.removeItem).toBeCalledTimes(0);
