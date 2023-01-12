@@ -1,17 +1,17 @@
 import { Entity } from '@src/domain/entities';
 
 export interface Image extends Entity {
-  name: string;
-  url: string;
+  readonly name: string;
+  readonly url: string;
 }
 
 export interface Price extends Entity {
-  value: number;
+  readonly value: number;
 }
 
 export interface Product extends Entity {
-  name: string;
-  description?: string;
-  images: Image[];
-  prices: Price[];
+  readonly name: string;
+  readonly description?: string;
+  readonly images: Image[];
+  readonly prices: Price[];
 }
