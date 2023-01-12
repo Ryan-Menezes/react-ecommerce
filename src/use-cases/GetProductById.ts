@@ -15,7 +15,7 @@ export class GetProductById {
   public async execute({
     id,
   }: GetProductByIdRequest): Promise<GetProductByIdResponse> {
-    const product = this.productRepository.findById(id);
+    const product = await this.productRepository.findById(id);
 
     if (product === null) {
       throw new ProductError('There is no product registered with this id');

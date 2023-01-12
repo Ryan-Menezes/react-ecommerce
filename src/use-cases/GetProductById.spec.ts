@@ -49,7 +49,7 @@ describe('GetProductsByCategory', () => {
 
   it('should throw an error if the product does not exist', async () => {
     const { productRepository, sut } = makeSut();
-    const req = { id: 'any-id' };
+    const req = { id: 'invalid-id' };
     productRepository.findById = jest.fn((id) => null);
 
     const promise = sut.execute(req);
