@@ -1,6 +1,6 @@
 import { ItemNotFoundError } from '@src/errors';
-import { CartRepository } from '@src/repositories';
-import { UpdateQuantityOfACartItem } from '@src/use-cases/cart';
+import { CartRepository } from '@src/domain/repositories';
+import { UpdateQuantityOfACartItem } from '@src/domain/use-cases/cart';
 
 const makeCartRepositoryMock = () => {
   const cartRepository: jest.Mocked<CartRepository> = {

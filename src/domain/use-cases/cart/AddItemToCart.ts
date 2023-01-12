@@ -1,5 +1,5 @@
-import { CartItem } from '@src/entities';
-import { CartRepository } from '@src/repositories';
+import { CartItem } from '@src/domain/entities';
+import { CartRepository } from '@src/domain/repositories';
 
 export interface AddItemToCartRequest {
   item: CartItem;

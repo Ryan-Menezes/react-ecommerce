@@ -1,6 +1,6 @@
-import { Product } from '@src/entities';
-import { ProductRepository } from '@src/repositories';
-import { GetProductsByCategory } from '@src/use-cases/product';
+import { Product } from '@src/domain/entities';
+import { ProductRepository } from '@src/domain/repositories';
+import { GetProductsByCategory } from '@src/domain/use-cases/product';
 
 const makeProductRepositoryMock = () => {
   const products: Product[] = [

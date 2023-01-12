@@ -1,6 +1,6 @@
-import { EntityId } from '@src/entities';
+import { EntityId } from '@src/domain/entities';
 import { ItemNotFoundError } from '@src/errors';
-import { CartRepository } from '@src/repositories';
+import { CartRepository } from '@src/domain/repositories';
 
 export interface UpdateQuantityOfACartItemRequest {
   id: EntityId;

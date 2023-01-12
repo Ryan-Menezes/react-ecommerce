@@ -1,5 +1,5 @@
-import { Repository } from '@src/repositories';
-import { Product } from '@src/entities';
+import { Repository } from '@src/domain/repositories';
+import { Product } from '@src/domain/entities';
 
 export interface ProductRepository extends Repository<Product> {
   findByCategory(category: string): Product[];

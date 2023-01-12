@@ -1,5 +1,5 @@
-import { Entity } from '@src/entities';
-import { Product, Price } from '@src/entities';
+import { Entity } from '@src/domain/entities';
+import { Product, Price } from '@src/domain/entities';
 
 export interface CartItem extends Entity {
   product: Product;
