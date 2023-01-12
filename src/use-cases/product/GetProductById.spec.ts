@@ -1,7 +1,7 @@
-import { Product } from '@src/entities/Product';
-import { ProductNotFoundError } from '@src/errors/ProductNotFoundError';
-import { ProductRepository } from '@src/repositories/ProductRepository';
-import { GetProductById } from '@src/use-cases/GetProductById';
+import { Product } from '@src/entities';
+import { ProductNotFoundError } from '@src/errors';
+import { ProductRepository } from '@src/repositories';
+import { GetProductById } from '@src/use-cases/product';
 
 const makeProductRepositoryMock = () => {
   const product: Product = {

@@ -1,4 +1,4 @@
-import { EntityId } from '@src/entities/Entity';
+import { EntityId } from '@src/entities';
 
 export interface Repository<T> {
   getAll(): T[];

@@ -1,6 +1,6 @@
-import { CartItem } from '@src/entities/CartItem';
-import { CartRepository } from '@src/repositories/CartRepository';
-import { AddItemToCart } from '@src/use-cases/AddItemToCart';
+import { CartItem } from '@src/entities';
+import { CartRepository } from '@src/repositories';
+import { AddItemToCart } from '@src/use-cases/cart';
 
 const makeCartRepositoryMock = () => {
   const item: CartItem = {

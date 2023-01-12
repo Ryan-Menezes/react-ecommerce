@@ -1,7 +1,7 @@
-import { ProductNotFoundError } from '@src/errors/ProductNotFoundError';
-import { EntityId } from '@src/entities/Entity';
-import { Product } from '@src/entities/Product';
-import { ProductRepository } from '@src/repositories/ProductRepository';
+import { ProductNotFoundError } from '@src/errors';
+import { EntityId } from '@src/entities';
+import { Product } from '@src/entities';
+import { ProductRepository } from '@src/repositories';
 
 export interface GetProductByIdRequest {
   id: EntityId;

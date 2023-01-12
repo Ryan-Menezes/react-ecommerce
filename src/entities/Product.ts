@@ -1,4 +1,4 @@
-import { Entity } from '@src/entities/Entity';
+import { Entity } from '@src/entities';
 
 export interface Image extends Entity {
   name: string;

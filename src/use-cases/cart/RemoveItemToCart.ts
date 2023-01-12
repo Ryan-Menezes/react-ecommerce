@@ -1,6 +1,6 @@
-import { EntityId } from '@src/entities/Entity';
-import { ItemNotFoundError } from '@src/errors/ItemNotFoundError';
-import { CartRepository } from '@src/repositories/CartRepository';
+import { EntityId } from '@src/entities';
+import { ItemNotFoundError } from '@src/errors';
+import { CartRepository } from '@src/repositories';
 
 export interface RemoveItemToCartRequest {
   id: EntityId;
