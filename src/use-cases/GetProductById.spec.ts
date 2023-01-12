@@ -55,5 +55,7 @@ describe('GetProductsByCategory', () => {
     const promise = sut.execute(req);
 
     await expect(promise).rejects.toThrow(ProductError);
+    expect(productRepository.findById).toBeCalledTimes(1);
+    expect(productRepository.findById).toBeCalledWith(req.id);
   });
 });

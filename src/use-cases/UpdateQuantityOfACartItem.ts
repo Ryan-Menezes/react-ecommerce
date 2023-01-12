@@ -2,14 +2,18 @@ import { EntityId } from '@src/entities/Entity';
 import { ItemNotFoundError } from '@src/errors/ItemNotFoundError';
 import { CartRepository } from '@src/repositories/CartRepository';
 
-export interface RemoveItemToCartParams {
+export interface UpdateQuantityOfACartItemRequest {
   id: EntityId;
+  quantity: number;
 }
 
-export class RemoveItemToCart {
+export class UpdateQuantityOfACartItem {
   public constructor(private cartRepository: CartRepository) {}
 
-  public async execute({ id }: RemoveItemToCartParams): Promise<void> {
+  public async execute({
+    id,
+    quantity,
+  }: UpdateQuantityOfACartItemRequest): Promise<void> {
     const item = await this.cartRepository.findById(id);
 
     if (item === null) {
@@ -18,6 +22,6 @@ export class RemoveItemToCart {
       );
     }
 
-    this.cartRepository.removeItem(id);
+    this.cartRepository.updateItemQuantity(id, quantity);
   }
 }

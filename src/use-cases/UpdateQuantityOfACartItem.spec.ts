@@ -1,6 +1,6 @@
 import { ItemNotFoundError } from '@src/errors/ItemNotFoundError';
 import { CartRepository } from '@src/repositories/CartRepository';
-import { RemoveItemToCart } from '@src/use-cases/RemoveItemToCart';
+import { UpdateQuantityOfACartItem } from '@src/use-cases/UpdateQuantityOfACartItem';
 
 const makeCartRepositoryMock = () => {
   const cartRepository: jest.Mocked<CartRepository> = {
@@ -20,7 +20,7 @@ const makeCartRepositoryMock = () => {
 
 const makeSut = () => {
   const { cartRepository } = makeCartRepositoryMock();
-  const sut = new RemoveItemToCart(cartRepository);
+  const sut = new UpdateQuantityOfACartItem(cartRepository);
 
   return {
     cartRepository,
@@ -28,25 +28,28 @@ const makeSut = () => {
   };
 };
 
-describe('RemoveItemToCart', () => {
-  it('should remove item to cart', async () => {
+describe('UpdateQuantityOfACartItem', () => {
+  it('should update quantity of a cart item', async () => {
     const { cartRepository, sut } = makeSut();
-    const params = { id: 'any-id' };
+    const req = { id: 'any-id', quantity: 2 };
 
-    await sut.execute(params);
+    await sut.execute(req);
 
-    expect(cartRepository.removeItem).toBeCalledTimes(1);
-    expect(cartRepository.removeItem).toBeCalledWith(params.id);
+    expect(cartRepository.updateItemQuantity).toBeCalledTimes(1);
+    expect(cartRepository.updateItemQuantity).toBeCalledWith(
+      req.id,
+      req.quantity
+    );
   });
 
   it('should throw an error if the item does not exist in the cart', async () => {
     const { cartRepository, sut } = makeSut();
-    const params = { id: 'invalid-id' };
+    const req = { id: 'invalid-id', quantity: 2 };
     cartRepository.findById = jest.fn((id) => null);
 
-    const promise = sut.execute(params);
+    const promise = sut.execute(req);
 
     await expect(promise).rejects.toThrow(ItemNotFoundError);
-    expect(cartRepository.removeItem).toBeCalledTimes(0);
+    expect(cartRepository.updateItemQuantity).toBeCalledTimes(0);
   });
 });
