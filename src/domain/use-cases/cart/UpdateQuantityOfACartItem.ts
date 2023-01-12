@@ -22,6 +22,6 @@ export class UpdateQuantityOfACartItem {
       );
     }
 
-    this.cartRepository.updateItemQuantity(id, quantity);
+    await this.cartRepository.updateItemQuantity(id, quantity);
   }
 }

@@ -9,6 +9,6 @@ export class AddItemToCart {
   public constructor(private readonly cartRepository: CartRepository) {}
 
   public async execute({ item }: AddItemToCartRequest): Promise<void> {
-    this.cartRepository.addItem(item);
+    await this.cartRepository.addItem(item);
   }
 }

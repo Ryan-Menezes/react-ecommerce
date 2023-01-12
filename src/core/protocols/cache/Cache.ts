@@ -6,9 +6,9 @@ export interface Cache<
   K extends CacheDefaultKeyType = CacheDefaultKeyType,
   T = CacheDefaultValueType
 > {
-  getAll(): T[];
-  get(key: K): T | null;
-  set(key: K, value: T): void;
-  remove(key: K): void;
-  clear(): void;
+  getAll(): Promise<T[]>;
+  get(key: K): Promise<T | null>;
+  set(key: K, value: T): Promise<void>;
+  remove(key: K): Promise<void>;
+  clear(): Promise<void>;
 }

@@ -18,6 +18,6 @@ export class RemoveItemToCart {
       );
     }
 
-    this.cartRepository.removeItem(id);
+    await this.cartRepository.removeItem(id);
   }
 }

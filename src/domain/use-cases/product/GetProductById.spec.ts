@@ -29,7 +29,9 @@ describe('GetProductById', () => {
   it('should return product of a specific id', async () => {
     const { productRepository, sut } = makeSut();
     const req = { id: 'any-id' };
-    productRepository.findById = jest.fn((id) => productObjectRepository);
+    productRepository.findById = jest.fn((id) =>
+      Promise.resolve(productObjectRepository)
+    );
 
     const response = await sut.execute(req);
 
@@ -41,7 +43,7 @@ describe('GetProductById', () => {
   it('should throw an error if the product does not exist', async () => {
     const { productRepository, sut } = makeSut();
     const req = { id: 'invalid-id' };
-    productRepository.findById = jest.fn((id) => null);
+    productRepository.findById = jest.fn((id) => Promise.resolve(null));
 
     const promise = sut.execute(req);
 

@@ -9,25 +9,28 @@ export class InMemoryCartRepository implements CartRepository {
     public readonly keyGenerator: UniqueKeyGenerator
   ) {}
 
-  public getAll(): CartItem[] {
+  public async getAll(): Promise<CartItem[]> {
     return this.cache.getAll();
   }
 
-  public findById(id: EntityId): CartItem | null {
+  public async findById(id: EntityId): Promise<CartItem | null> {
     return this.cache.get(id);
   }
 
-  public addItem(item: CartItem): void {
-    const id = item.id ?? this.keyGenerator.generate();
+  public async addItem(item: CartItem): Promise<void> {
+    const id = item.id ?? (await this.keyGenerator.generate());
     this.cache.set(id, { ...item, id });
   }
 
-  public removeItem(id: EntityId): void {
+  public async removeItem(id: EntityId): Promise<void> {
     this.cache.remove(id);
   }
 
-  public updateItemQuantity(id: EntityId, quantity: number): void {
-    const item = this.findById(id);
+  public async updateItemQuantity(
+    id: EntityId,
+    quantity: number
+  ): Promise<void> {
+    const item = await this.findById(id);
 
     if (item === null) {
       return;
@@ -37,8 +40,8 @@ export class InMemoryCartRepository implements CartRepository {
     this.cache.set(id, item);
   }
 
-  public subtotal(id: EntityId): number {
-    const item = this.findById(id);
+  public async subtotal(id: EntityId): Promise<number> {
+    const item = await this.findById(id);
 
     if (item === null) {
       return 0;
@@ -47,15 +50,15 @@ export class InMemoryCartRepository implements CartRepository {
     return item.price.value * item.quantity;
   }
 
-  public total(): number {
-    const items = this.getAll();
+  public async total(): Promise<number> {
+    const items = await this.getAll();
 
     return items.reduce((total, item) => {
       return total + item.price.value * item.quantity;
     }, 0);
   }
 
-  public clear(): void {
+  public async clear(): Promise<void> {
     this.cache.clear();
   }
 }

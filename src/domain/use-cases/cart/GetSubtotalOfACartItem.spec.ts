@@ -43,7 +43,7 @@ describe('GetSubtotalOfACartItem', () => {
   it('should throw an error if the item does not exist in the cart', async () => {
     const { cartRepository, sut } = makeSut();
     const req = { id: 'invalid-id' };
-    cartRepository.findById = jest.fn((id) => null);
+    cartRepository.findById = jest.fn((id) => Promise.resolve(null));
 
     const promise = sut.execute(req);
 

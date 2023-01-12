@@ -28,8 +28,8 @@ describe('GetProductsByCategory', () => {
   it('should return all products from a given category', async () => {
     const { productRepository, sut } = makeSut();
     const req = { category: 'any-category' };
-    productRepository.findByCategory = jest.fn(
-      (category) => productsArrayRepository
+    productRepository.findByCategory = jest.fn((category) =>
+      Promise.resolve(productsArrayRepository)
     );
 
     const response = await sut.execute(req);

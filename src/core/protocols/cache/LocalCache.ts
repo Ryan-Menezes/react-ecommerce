@@ -11,7 +11,7 @@ export class LocalCache<
 {
   private readonly items = new Map<K, T>();
 
-  public getAll(): T[] {
+  public async getAll(): Promise<T[]> {
     const items = [];
 
     for (const value of this.items.values()) {
@@ -21,8 +21,8 @@ export class LocalCache<
     return items;
   }
 
-  public get(key: K): T | null {
-    const item = this.items.get(key);
+  public async get(key: K): Promise<T | null> {
+    const item = await this.items.get(key);
 
     if (!item) {
       return null;
@@ -31,15 +31,15 @@ export class LocalCache<
     return item;
   }
 
-  public set(key: K, value: T): void {
-    this.items.set(key, value);
+  public async set(key: K, value: T): Promise<void> {
+    await this.items.set(key, value);
   }
 
-  public remove(key: K): void {
-    this.items.delete(key);
+  public async remove(key: K): Promise<void> {
+    await this.items.delete(key);
   }
 
-  public clear(): void {
-    this.items.clear();
+  public async clear(): Promise<void> {
+    await this.items.clear();
   }
 }

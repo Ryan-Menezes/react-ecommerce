@@ -3,10 +3,10 @@ import { CartItem } from '@src/domain/entities';
 import { EntityId } from '@src/domain/entities';
 
 export interface CartRepository extends Repository<CartItem> {
-  addItem(item: CartItem): void;
-  removeItem(id: EntityId): void;
-  updateItemQuantity(id: EntityId, quantity: number): void;
-  subtotal(id: EntityId): number;
-  total(): number;
-  clear(): void;
+  addItem(item: CartItem): Promise<void>;
+  removeItem(id: EntityId): Promise<void>;
+  updateItemQuantity(id: EntityId, quantity: number): Promise<void>;
+  subtotal(id: EntityId): Promise<number>;
+  total(): Promise<number>;
+  clear(): Promise<void>;
 }
