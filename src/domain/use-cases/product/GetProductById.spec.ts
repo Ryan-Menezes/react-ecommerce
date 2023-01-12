@@ -1,35 +1,25 @@
-import { Product } from '@src/domain/entities';
 import { ProductNotFoundError } from '@src/errors';
 import { ProductRepository } from '@src/domain/repositories';
 import { GetProductById } from '@src/domain/use-cases/product';
+import productObjectRepository from '@tests/fixtures/product-object-repository.json';
 
 const makeProductRepositoryMock = () => {
-  const product: Product = {
-    id: 'any-id',
-    name: 'shirt',
-    description: 'any-description',
-    images: [],
-    prices: [],
-  };
-
   const productRepository: jest.Mocked<ProductRepository> = {
     getAll: jest.fn(),
-    findById: jest.fn((id) => product),
+    findById: jest.fn(),
     findByCategory: jest.fn(),
   };
 
   return {
-    product,
     productRepository,
   };
 };
 
 const makeSut = () => {
-  const { product, productRepository } = makeProductRepositoryMock();
+  const { productRepository } = makeProductRepositoryMock();
   const sut = new GetProductById(productRepository);
 
   return {
-    product,
     productRepository,
     sut,
   };
@@ -37,14 +27,15 @@ const makeSut = () => {
 
 describe('GetProductById', () => {
   it('should return product of a specific id', async () => {
-    const { product, productRepository, sut } = makeSut();
+    const { productRepository, sut } = makeSut();
     const req = { id: 'any-id' };
+    productRepository.findById = jest.fn((id) => productObjectRepository);
 
     const response = await sut.execute(req);
 
     expect(productRepository.findById).toBeCalledTimes(1);
     expect(productRepository.findById).toBeCalledWith(req.id);
-    expect(response).toEqual(product);
+    expect(response).toEqual(productObjectRepository);
   });
 
   it('should throw an error if the product does not exist', async () => {

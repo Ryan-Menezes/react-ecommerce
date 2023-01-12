@@ -1,22 +1,8 @@
-import { CartItem } from '@src/domain/entities';
 import { CartRepository } from '@src/domain/repositories';
 import { AddItemToCart } from '@src/domain/use-cases/cart';
+import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository.json';
 
 const makeCartRepositoryMock = () => {
-  const item: CartItem = {
-    product: {
-      id: 'any-id',
-      name: 'shirt',
-      description: 'any-description',
-      images: [],
-      prices: [],
-    },
-    price: {
-      value: 15.5,
-    },
-    quantity: 1,
-  };
-
   const cartRepository: jest.Mocked<CartRepository> = {
     getAll: jest.fn(),
     findById: jest.fn(),
@@ -29,17 +15,15 @@ const makeCartRepositoryMock = () => {
   };
 
   return {
-    item,
     cartRepository,
   };
 };
 
 const makeSut = () => {
-  const { item, cartRepository } = makeCartRepositoryMock();
+  const { cartRepository } = makeCartRepositoryMock();
   const sut = new AddItemToCart(cartRepository);
 
   return {
-    item,
     cartRepository,
     sut,
   };
@@ -47,8 +31,8 @@ const makeSut = () => {
 
 describe('AddItemToCart', () => {
   it('should add item to cart', async () => {
-    const { item, cartRepository, sut } = makeSut();
-    const req = { item };
+    const { cartRepository, sut } = makeSut();
+    const req = { item: cartItemObjectRepository };
 
     await sut.execute(req);
 
