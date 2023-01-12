@@ -7,7 +7,7 @@ export interface RemoveItemToCartRequest {
 }
 
 export class RemoveItemToCart {
-  public constructor(private cartRepository: CartRepository) {}
+  public constructor(private readonly cartRepository: CartRepository) {}
 
   public async execute({ id }: RemoveItemToCartRequest): Promise<void> {
     const item = await this.cartRepository.findById(id);

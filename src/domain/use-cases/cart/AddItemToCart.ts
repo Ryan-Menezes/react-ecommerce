@@ -6,7 +6,7 @@ export interface AddItemToCartRequest {
 }
 
 export class AddItemToCart {
-  public constructor(private cartRepository: CartRepository) {}
+  public constructor(private readonly cartRepository: CartRepository) {}
 
   public async execute({ item }: AddItemToCartRequest): Promise<void> {
     this.cartRepository.addItem(item);

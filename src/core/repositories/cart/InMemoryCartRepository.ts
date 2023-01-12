@@ -4,9 +4,7 @@ import { CartItem, EntityId } from '@src/domain/entities';
 import { CartRepository } from '@src/domain/repositories';
 
 export class InMemoryCartRepository implements CartRepository {
-  public constructor(
-    public readonly cache: Cache<EntityId, CartItem>
-  ) {}
+  public constructor(public readonly cache: Cache<EntityId, CartItem>) {}
 
   public getAll(): CartItem[] {
     return this.cache.getAll();
@@ -50,7 +48,7 @@ export class InMemoryCartRepository implements CartRepository {
     const items = this.getAll();
 
     return items.reduce((total, item) => {
-      return total + (item.price.value * item.quantity);
+      return total + item.price.value * item.quantity;
     }, 0);
   }
 

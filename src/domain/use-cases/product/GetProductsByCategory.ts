@@ -8,7 +8,7 @@ export interface GetProductsByCategoryRequest {
 export type GetProductsByCategoryResponse = Product[];
 
 export class GetProductsByCategory {
-  public constructor(private productRepository: ProductRepository) {}
+  public constructor(private readonly productRepository: ProductRepository) {}
 
   public async execute({
     category,

@@ -10,7 +10,7 @@ export interface GetProductByIdRequest {
 export type GetProductByIdResponse = Product;
 
 export class GetProductById {
-  public constructor(private productRepository: ProductRepository) {}
+  public constructor(private readonly productRepository: ProductRepository) {}
 
   public async execute({
     id,

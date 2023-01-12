@@ -7,7 +7,7 @@ export interface GetSubtotalOfACartItemRequest {
 }
 
 export class GetSubtotalOfACartItem {
-  public constructor(private cartRepository: CartRepository) {}
+  public constructor(private readonly cartRepository: CartRepository) {}
 
   public async execute({ id }: GetSubtotalOfACartItemRequest): Promise<number> {
     const item = await this.cartRepository.findById(id);

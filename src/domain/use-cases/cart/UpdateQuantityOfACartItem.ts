@@ -8,7 +8,7 @@ export interface UpdateQuantityOfACartItemRequest {
 }
 
 export class UpdateQuantityOfACartItem {
-  public constructor(private cartRepository: CartRepository) {}
+  public constructor(private readonly cartRepository: CartRepository) {}
 
   public async execute({
     id,

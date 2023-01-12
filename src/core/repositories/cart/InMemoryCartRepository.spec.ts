@@ -37,10 +37,7 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem1);
     cartRepository.addItem(cartItem2);
 
-    expect(cartRepository.getAll()).toEqual([
-      cartItem1,
-      cartItem2,
-    ]);
+    expect(cartRepository.getAll()).toEqual([cartItem1, cartItem2]);
   });
 
   it('should replace item to cart', () => {
@@ -50,9 +47,7 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem1);
     cartRepository.addItem(cartItem1);
 
-    expect(cartRepository.getAll()).toEqual([
-      cartItem1,
-    ]);
+    expect(cartRepository.getAll()).toEqual([cartItem1]);
   });
 
   it('should remove item to cart', () => {
@@ -72,10 +67,7 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem2);
     cartRepository.removeItem('invalid-id');
 
-    expect(cartRepository.getAll()).toEqual([
-      cartItem1,
-      cartItem2,
-    ]);
+    expect(cartRepository.getAll()).toEqual([cartItem1, cartItem2]);
   });
 
   it('should find a cart item by its id', () => {
@@ -119,10 +111,7 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem2);
     cartRepository.updateItemQuantity('invalid-id', 5);
 
-    expect(cartRepository.getAll()).toEqual([
-      cartItem1,
-      cartItem2,
-    ]);
+    expect(cartRepository.getAll()).toEqual([cartItem1, cartItem2]);
   });
 
   it('should not update the quantity of a cart item if quantity is invalid', () => {
@@ -175,10 +164,7 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem1);
     cartRepository.addItem(cartItem2);
 
-    expect(cartRepository.getAll()).toEqual([
-      cartItem1,
-      cartItem2,
-    ]);
+    expect(cartRepository.getAll()).toEqual([cartItem1, cartItem2]);
     expect(cartRepository.total()).toBe(62);
 
     cartRepository.clear();

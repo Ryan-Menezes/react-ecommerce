@@ -1,12 +1,20 @@
-import { CacheDefaultKeyType, CacheDefaultValueType, Cache } from '@src/core/protocols/cache';
+import {
+  CacheDefaultKeyType,
+  CacheDefaultValueType,
+  Cache,
+} from '@src/core/protocols/cache';
 
-export default class LocalCache<K extends CacheDefaultValueType = CacheDefaultKeyType, T = CacheDefaultValueType> implements Cache<K, T> {
+export default class LocalCache<
+  K extends CacheDefaultValueType = CacheDefaultKeyType,
+  T = CacheDefaultValueType
+> implements Cache<K, T>
+{
   private readonly items = new Map<K, T>();
 
   public getAll(): T[] {
     const items = [];
 
-    for(const value of this.items.values()) {
+    for (const value of this.items.values()) {
       items.push(value);
     }
 
