@@ -1,5 +1,5 @@
 import { Product } from '@src/entities/Product';
-import { ProductError } from '@src/errors/ProductError';
+import { ProductNotFoundError } from '@src/errors/ProductNotFoundError';
 import { ProductRepository } from '@src/repositories/ProductRepository';
 import { GetProductById } from '@src/use-cases/GetProductById';
 
@@ -54,7 +54,7 @@ describe('GetProductsByCategory', () => {
 
     const promise = sut.execute(req);
 
-    await expect(promise).rejects.toThrow(ProductError);
+    await expect(promise).rejects.toThrow(ProductNotFoundError);
     expect(productRepository.findById).toBeCalledTimes(1);
     expect(productRepository.findById).toBeCalledWith(req.id);
   });

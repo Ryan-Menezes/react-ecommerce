@@ -1,4 +1,4 @@
-import { ProductError } from '@src/errors/ProductError';
+import { ProductNotFoundError } from '@src/errors/ProductNotFoundError';
 import { EntityId } from '@src/entities/Entity';
 import { Product } from '@src/entities/Product';
 import { ProductRepository } from '@src/repositories/ProductRepository';
@@ -18,7 +18,9 @@ export class GetProductById {
     const product = await this.productRepository.findById(id);
 
     if (product === null) {
-      throw new ProductError('There is no product registered with this id');
+      throw new ProductNotFoundError(
+        'There is no product registered with this id'
+      );
     }
 
     return product;
