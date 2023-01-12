@@ -1,6 +1,6 @@
 import { ProductRepository } from '@src/domain/repositories';
 import { GetProductsByCategory } from '@src/domain/use-cases/product';
-import productsArrayRepository from '@tests/fixtures/products-array-repository.json';
+import productsArrayRepository from '@tests/fixtures/products-array-repository';
 
 const makeProductRepositoryMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {

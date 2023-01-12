@@ -1,7 +1,7 @@
 import { ProductNotFoundError } from '@src/errors';
 import { ProductRepository } from '@src/domain/repositories';
 import { GetProductById } from '@src/domain/use-cases/product';
-import productObjectRepository from '@tests/fixtures/product-object-repository.json';
+import productObjectRepository from '@tests/fixtures/product-object-repository';
 
 const makeProductRepositoryMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {

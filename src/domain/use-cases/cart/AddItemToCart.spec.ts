@@ -1,6 +1,6 @@
 import { CartRepository } from '@src/domain/repositories';
 import { AddItemToCart } from '@src/domain/use-cases/cart';
-import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository.json';
+import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository';
 
 const makeCartRepositoryMock = () => {
   const cartRepository: jest.Mocked<CartRepository> = {

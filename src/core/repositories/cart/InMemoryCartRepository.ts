@@ -17,7 +17,7 @@ export class InMemoryCartRepository implements CartRepository {
   }
 
   public addItem(item: CartItem): void {
-    const id = uuidv4();
+    const id = item.id ?? uuidv4();
     this.cache.set(id, { id, ...item });
   }
 
@@ -32,7 +32,7 @@ export class InMemoryCartRepository implements CartRepository {
       return;
     }
 
-    item.quantity = quantity;
+    item.quantity = quantity > 0 ? quantity : 1;
     this.cache.set(id, item);
   }
 
