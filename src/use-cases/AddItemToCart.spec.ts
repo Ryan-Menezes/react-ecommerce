@@ -49,7 +49,7 @@ describe('AddItemToCart', () => {
     const { item, cartRepository, sut } = makeSut();
     const req = { item };
 
-    sut.execute(req);
+    await sut.execute(req);
 
     expect(cartRepository.addItem).toBeCalledTimes(1);
     expect(cartRepository.addItem).toBeCalledWith(req.item);
