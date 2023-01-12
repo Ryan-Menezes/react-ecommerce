@@ -1,15 +1,20 @@
-import LocalCache from '@src/core/protocols/cache/LocalCache';
+import { LocalCache } from '@src/core/protocols/cache';
+import { UniqueKeyGenerator } from '@src/core/protocols/generator';
 import { CartItem, EntityId } from '@src/domain/entities';
 import { InMemoryCartRepository } from '@src/core/repositories/cart';
 import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository';
 
 const makeSut = () => {
+  const keyGenerator: jest.Mocked<UniqueKeyGenerator> = {
+    generate: jest.fn(() => 'unique-id'),
+  };
   const cache = new LocalCache<EntityId, CartItem>();
-  const cartRepository = new InMemoryCartRepository(cache);
+  const cartRepository = new InMemoryCartRepository(cache, keyGenerator);
 
   return {
     cache,
     cartRepository,
+    keyGenerator,
   };
 };
 
@@ -38,6 +43,24 @@ describe('InMemoryCartRepository', () => {
     cartRepository.addItem(cartItem2);
 
     expect(cartRepository.getAll()).toEqual([cartItem1, cartItem2]);
+  });
+
+  it('should generate an id if the cart item passed does not have one', () => {
+    const { cartRepository, keyGenerator } = makeSut();
+    const cartItemWithoutId = {
+      ...cartItem1,
+      id: undefined,
+    };
+
+    cartRepository.addItem(cartItemWithoutId);
+
+    expect(cartRepository.getAll()).toEqual([
+      {
+        ...cartItemWithoutId,
+        id: 'unique-id',
+      },
+    ]);
+    expect(keyGenerator.generate).toBeCalledTimes(1);
   });
 
   it('should replace item to cart', () => {

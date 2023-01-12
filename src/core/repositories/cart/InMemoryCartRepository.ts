@@ -1,10 +1,13 @@
-import { v4 as uuidv4 } from 'uuid';
+import { UniqueKeyGenerator } from '@src/core/protocols/generator';
 import { Cache } from '@src/core/protocols/cache';
 import { CartItem, EntityId } from '@src/domain/entities';
 import { CartRepository } from '@src/domain/repositories';
 
 export class InMemoryCartRepository implements CartRepository {
-  public constructor(public readonly cache: Cache<EntityId, CartItem>) {}
+  public constructor(
+    public readonly cache: Cache<EntityId, CartItem>,
+    public readonly keyGenerator: UniqueKeyGenerator
+  ) {}
 
   public getAll(): CartItem[] {
     return this.cache.getAll();
@@ -15,8 +18,8 @@ export class InMemoryCartRepository implements CartRepository {
   }
 
   public addItem(item: CartItem): void {
-    const id = item.id ?? uuidv4();
-    this.cache.set(id, { id, ...item });
+    const id = item.id ?? this.keyGenerator.generate();
+    this.cache.set(id, { ...item, id });
   }
 
   public removeItem(id: EntityId): void {

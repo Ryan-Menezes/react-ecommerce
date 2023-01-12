@@ -4,7 +4,7 @@ import {
   Cache,
 } from '@src/core/protocols/cache';
 
-export default class LocalCache<
+export class LocalCache<
   K extends CacheDefaultValueType = CacheDefaultKeyType,
   T = CacheDefaultValueType
 > implements Cache<K, T>
