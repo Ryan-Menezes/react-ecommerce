@@ -35,7 +35,7 @@ const makeSut = () => {
   };
 };
 
-describe('GetProductsByCategory', () => {
+describe('GetProductById', () => {
   it('should return product of a specific id', async () => {
     const { product, productRepository, sut } = makeSut();
     const req = { id: 'any-id' };
