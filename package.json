@@ -12,11 +12,13 @@
     "style:fix": "npx prettier --write src/"
   },
   "dependencies": {
-    "preact": "^10.11.3"
+    "preact": "^10.11.3",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.4.0",
     "@types/jest": "^29.2.5",
+    "@types/uuid": "^9.0.0",
     "jest": "^29.3.1",
     "prettier": "2.8.2",
     "ts-jest": "^29.0.3",
