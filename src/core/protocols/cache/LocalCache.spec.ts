@@ -31,7 +31,7 @@ describe('LocalCache', () => {
 
     await sut.remove(itemKey);
 
-    expect(await sut.get(itemKey)).toBe(null);
+    expect(await sut.get(itemKey)).toBeNull();
     expect(await sut.getAll()).toEqual([]);
   });
 
@@ -40,7 +40,7 @@ describe('LocalCache', () => {
 
     await sut.set(itemKey, itemValue);
 
-    expect(await sut.get('invalid-key')).toBe(null);
+    expect(await sut.get('invalid-key')).toBeNull();
   });
 
   it('should replace item to cache', async () => {

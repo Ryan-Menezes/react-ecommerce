@@ -108,7 +108,7 @@ describe('InMemoryCartRepository', () => {
     await cartRepository.addItem(cartItem1);
     await cartRepository.addItem(cartItem2);
 
-    expect(await cartRepository.findById('invalid-id')).toBe(null);
+    expect(await cartRepository.findById('invalid-id')).toBeNull();
   });
 
   it('should update the quantity of a cart item', async () => {
