@@ -47,9 +47,7 @@ describe('AddItemToCart', () => {
     productRepository.findById = jest.fn((id) =>
       Promise.resolve(productObjectRepository)
     );
-    cartRepository.findById = jest.fn((id) =>
-      Promise.resolve(null)
-    );
+    cartRepository.findById = jest.fn((id) => Promise.resolve(null));
 
     await sut.execute(req);
 
@@ -81,12 +79,10 @@ describe('AddItemToCart', () => {
     expect(cartRepository.addItem).toBeCalledTimes(0);
   });
 
-  it('Should throw an error if the product doesn\'t exist', async () => {
+  it("Should throw an error if the product doesn't exist", async () => {
     const { productRepository, cartRepository, sut } = makeSut();
     const req = { product_id: 'invalid-id', price_id: 'any-id' };
-    productRepository.findById = jest.fn((id) =>
-      Promise.resolve(null)
-    );
+    productRepository.findById = jest.fn((id) => Promise.resolve(null));
 
     const promise = sut.execute(req);
 
@@ -97,7 +93,7 @@ describe('AddItemToCart', () => {
     expect(cartRepository.addItem).toBeCalledTimes(0);
   });
 
-  it('Should throw an error if the price doesn\'t exist', async () => {
+  it("Should throw an error if the price doesn't exist", async () => {
     const { productRepository, cartRepository, sut } = makeSut();
     const req = { product_id: 'any-id', price_id: 'invalid-id' };
     productRepository.findById = jest.fn((id) =>
