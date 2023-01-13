@@ -18,7 +18,6 @@ const makeRepositoriesMock = () => {
     addItem: jest.fn(),
     removeItem: jest.fn(),
     updateItemQuantity: jest.fn(),
-    subtotal: jest.fn(),
     total: jest.fn(),
     clear: jest.fn(),
   };

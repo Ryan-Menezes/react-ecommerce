@@ -160,24 +160,6 @@ describe('InMemoryCartRepository', () => {
     ]);
   });
 
-  it('should return the subtotal of an cart item ', async () => {
-    const { cartRepository } = makeSut();
-
-    await cartRepository.addItem(cartItem1);
-    await cartRepository.addItem(cartItem2);
-
-    expect(await cartRepository.subtotal(cartItem1.id)).toBe(31);
-  });
-
-  it('should return zero if cart item not found', async () => {
-    const { cartRepository } = makeSut();
-
-    await cartRepository.addItem(cartItem1);
-    await cartRepository.addItem(cartItem2);
-
-    expect(await cartRepository.subtotal('invalid-id')).toBe(0);
-  });
-
   it('should return the total of cart', async () => {
     const { cartRepository } = makeSut();
 

@@ -45,16 +45,6 @@ export class InMemoryCartRepository implements CartRepository {
     });
   }
 
-  public async subtotal(id: EntityId): Promise<number> {
-    const item = await this.findById(id);
-
-    if (item === null) {
-      return 0;
-    }
-
-    return item.product.price.value * item.product.quantity;
-  }
-
   public async total(): Promise<number> {
     const items = await this.getAll();
 
