@@ -32,7 +32,7 @@ export class LocalCache<
   }
 
   public async set(key: K, value: T): Promise<void> {
-    await this.items.set(key, { ...value });
+    await this.items.set(key, value);
   }
 
   public async remove(key: K): Promise<void> {
