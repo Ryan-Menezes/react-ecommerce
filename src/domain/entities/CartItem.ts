@@ -1,8 +1,12 @@
-import { Entity } from '@src/domain/entities';
-import { Product, Price } from '@src/domain/entities';
+import { Entity, Product, Image, Price } from '@src/domain/entities';
+
+export interface CartItemProduct
+  extends Pick<Required<Product>, 'id' | 'name'> {
+  image?: Image;
+  price: Price;
+  quantity: number;
+}
 
 export interface CartItem extends Entity {
-  readonly product: Product;
-  readonly price: Price;
-  quantity: number;
+  product: CartItemProduct;
 }

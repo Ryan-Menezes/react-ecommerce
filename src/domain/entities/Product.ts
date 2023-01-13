@@ -1,6 +1,6 @@
 import { Entity } from '@src/domain/entities';
 
-export interface Image extends Entity {
+export interface Image {
   readonly name: string;
   readonly url: string;
 }

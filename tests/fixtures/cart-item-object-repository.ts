@@ -3,12 +3,14 @@ export default {
   product: {
     id: 'any-id',
     name: 'shirt',
-    description: 'any-description',
-    images: [],
-    prices: []
+    image: {
+      name: 'any-name',
+      url: 'http://domain.com/any-image.png',
+    },
+    price: {
+      id: 'any-id',
+      value: 15.5,
+    },
+    quantity: 2,
   },
-  price: {
-    value: 15.5
-  },
-  quantity: 2.
 };

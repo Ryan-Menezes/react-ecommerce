@@ -3,5 +3,10 @@ export default {
   name: 'shirt',
   description: 'any-description',
   images: [],
-  prices: []
+  prices: [
+    {
+      id: 'any-id',
+      value: 15.5,
+    },
+  ],
 };

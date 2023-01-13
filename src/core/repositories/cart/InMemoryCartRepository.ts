@@ -1,7 +1,7 @@
 import { UniqueKeyGenerator } from '@src/core/protocols/generator';
 import { Cache } from '@src/core/protocols/cache';
 import { CartItem, EntityId } from '@src/domain/entities';
-import { CartRepository } from '@src/domain/repositories';
+import { CartItemData, CartRepository } from '@src/domain/repositories';
 
 export class InMemoryCartRepository implements CartRepository {
   public constructor(
@@ -17,7 +17,7 @@ export class InMemoryCartRepository implements CartRepository {
     return this.cache.get(id);
   }
 
-  public async addItem(item: CartItem): Promise<void> {
+  public async addItem(item: CartItemData): Promise<void> {
     const id = item.id ?? (await this.keyGenerator.generate());
     this.cache.set(id, { ...item, id });
   }
@@ -36,8 +36,13 @@ export class InMemoryCartRepository implements CartRepository {
       return;
     }
 
-    item.quantity = quantity > 0 ? quantity : 1;
-    this.cache.set(id, item);
+    this.cache.set(id, {
+      ...item,
+      product: {
+        ...item.product,
+        quantity: quantity > 0 ? quantity : 1,
+      },
+    });
   }
 
   public async subtotal(id: EntityId): Promise<number> {
@@ -47,14 +52,14 @@ export class InMemoryCartRepository implements CartRepository {
       return 0;
     }
 
-    return item.price.value * item.quantity;
+    return item.product.price.value * item.product.quantity;
   }
 
   public async total(): Promise<number> {
     const items = await this.getAll();
 
-    return items.reduce((total, item) => {
-      return total + item.price.value * item.quantity;
+    return items.reduce((total, { product }) => {
+      return total + product.price.value * product.quantity;
     }, 0);
   }
 

@@ -19,12 +19,12 @@ const makeSut = () => {
 };
 
 describe('InMemoryCartRepository', () => {
-  const cartItem1 = {
+  const cartItem1: Readonly<CartItem> = {
     ...cartItemObjectRepository,
     id: '123',
   };
 
-  const cartItem2 = {
+  const cartItem2: Readonly<CartItem> = {
     ...cartItemObjectRepository,
     id: '456',
   };
@@ -122,7 +122,10 @@ describe('InMemoryCartRepository', () => {
       cartItem1,
       {
         ...cartItem2,
-        quantity: 5,
+        product: {
+          ...cartItem2.product,
+          quantity: 5,
+        },
       },
     ]);
   });
@@ -149,7 +152,10 @@ describe('InMemoryCartRepository', () => {
       cartItem1,
       {
         ...cartItem2,
-        quantity: 1,
+        product: {
+          ...cartItem2.product,
+          quantity: 1,
+        },
       },
     ]);
   });
