@@ -1,7 +1,7 @@
 import { ProductNotFoundError } from '@src/errors';
 import { ProductRepository } from '@src/domain/repositories';
 import { GetProductById } from '@src/domain/use-cases/product';
-import productObjectRepository from '@tests/fixtures/product-object-repository';
+import productObjectRepositoryFixture from '@tests/fixtures/product-object-repository';
 
 const makeProductRepositoryMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {
@@ -30,14 +30,14 @@ describe('GetProductById', () => {
     const { productRepository, sut } = makeSut();
     const req = { id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
-      Promise.resolve(productObjectRepository)
+      Promise.resolve(productObjectRepositoryFixture)
     );
 
     const response = await sut.execute(req);
 
     expect(productRepository.findById).toBeCalledTimes(1);
     expect(productRepository.findById).toBeCalledWith(req.id);
-    expect(response).toEqual(productObjectRepository);
+    expect(response).toEqual(productObjectRepositoryFixture);
   });
 
   it('should throw an error if the product does not exist', async () => {

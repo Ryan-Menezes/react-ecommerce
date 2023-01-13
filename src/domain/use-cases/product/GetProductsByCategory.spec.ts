@@ -1,6 +1,6 @@
 import { ProductRepository } from '@src/domain/repositories';
 import { GetProductsByCategory } from '@src/domain/use-cases/product';
-import productsArrayRepository from '@tests/fixtures/products-array-repository';
+import productsArrayRepositoryFixture from '@tests/fixtures/products-array-repository';
 
 const makeProductRepositoryMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {
@@ -29,13 +29,13 @@ describe('GetProductsByCategory', () => {
     const { productRepository, sut } = makeSut();
     const req = { category: 'any-category' };
     productRepository.findByCategory = jest.fn((category) =>
-      Promise.resolve(productsArrayRepository)
+      Promise.resolve(productsArrayRepositoryFixture)
     );
 
     const response = await sut.execute(req);
 
     expect(productRepository.findByCategory).toBeCalledTimes(1);
     expect(productRepository.findByCategory).toBeCalledWith(req.category);
-    expect(response).toEqual(productsArrayRepository);
+    expect(response).toEqual(productsArrayRepositoryFixture);
   });
 });

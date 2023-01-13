@@ -1,8 +1,8 @@
 import { CartItem } from '@src/domain/entities';
 import { CartRepository } from '@src/domain/repositories';
 import { GetAllCartItems } from '@src/domain/use-cases/cart';
-import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository';
-import cartGetAllResponseUsecase from '@tests/fixtures/cart-get-all-response-usecase';
+import cartItemObjectRepositoryFixture from '@tests/fixtures/cart-item-object-repository';
+import cartGetAllResponseUsecaseFixture from '@tests/fixtures/cart-get-all-response-usecase';
 
 const makeCartRepositoryMock = () => {
   const cartRepository: jest.Mocked<CartRepository> = {
@@ -33,12 +33,12 @@ const makeSut = () => {
 
 describe('GetAllCartItems', () => {
   const cartItem1: Readonly<CartItem> = {
-    ...cartItemObjectRepository,
+    ...cartItemObjectRepositoryFixture,
     id: '123',
   };
 
   const cartItem2: Readonly<CartItem> = {
-    ...cartItemObjectRepository,
+    ...cartItemObjectRepositoryFixture,
     id: '456',
   };
 
@@ -53,6 +53,6 @@ describe('GetAllCartItems', () => {
 
     expect(cartRepository.getAll).toBeCalledTimes(1);
     expect(cartRepository.total).toBeCalledTimes(1);
-    expect(response).toEqual(cartGetAllResponseUsecase);
+    expect(response).toEqual(cartGetAllResponseUsecaseFixture);
   });
 });

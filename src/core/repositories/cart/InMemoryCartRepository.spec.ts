@@ -2,7 +2,7 @@ import { LocalCache } from '@src/core/protocols/cache';
 import { UniqueKeyGenerator } from '@src/core/protocols/generator';
 import { CartItem, EntityId } from '@src/domain/entities';
 import { InMemoryCartRepository } from '@src/core/repositories/cart';
-import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository';
+import cartItemObjectRepositoryFixture from '@tests/fixtures/cart-item-object-repository';
 
 const makeSut = () => {
   const keyGenerator: jest.Mocked<UniqueKeyGenerator> = {
@@ -20,12 +20,12 @@ const makeSut = () => {
 
 describe('InMemoryCartRepository', () => {
   const cartItem1: Readonly<CartItem> = {
-    ...cartItemObjectRepository,
+    ...cartItemObjectRepositoryFixture,
     id: '123',
   };
 
   const cartItem2: Readonly<CartItem> = {
-    ...cartItemObjectRepository,
+    ...cartItemObjectRepositoryFixture,
     id: '456',
   };
 

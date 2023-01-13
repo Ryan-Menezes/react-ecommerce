@@ -2,8 +2,8 @@ import { ProductRepository, CartRepository } from '@src/domain/repositories';
 import { AddItemToCart } from '@src/domain/use-cases/cart';
 import { ProductNotFoundError } from '@src/errors';
 import { PriceNotFoundError } from '@src/errors/PriceNotFoundError';
-import cartItemObjectRepository from '@tests/fixtures/cart-item-object-repository';
-import productObjectRepository from '@tests/fixtures/product-object-repository';
+import cartItemObjectRepositoryFixture from '@tests/fixtures/cart-item-object-repository';
+import productObjectRepositoryFixture from '@tests/fixtures/product-object-repository';
 
 const makeRepositoriesMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {
@@ -45,7 +45,7 @@ describe('AddItemToCart', () => {
     const { productRepository, cartRepository, sut } = makeSut();
     const req = { product_id: 'any-id', price_id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
-      Promise.resolve(productObjectRepository)
+      Promise.resolve(productObjectRepositoryFixture)
     );
     cartRepository.findById = jest.fn((id) => Promise.resolve(null));
 
@@ -61,10 +61,10 @@ describe('AddItemToCart', () => {
     const { productRepository, cartRepository, sut } = makeSut();
     const req = { product_id: 'any-id', price_id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
-      Promise.resolve(productObjectRepository)
+      Promise.resolve(productObjectRepositoryFixture)
     );
     cartRepository.findById = jest.fn((id) =>
-      Promise.resolve(cartItemObjectRepository)
+      Promise.resolve(cartItemObjectRepositoryFixture)
     );
 
     await sut.execute(req);
@@ -97,7 +97,7 @@ describe('AddItemToCart', () => {
     const { productRepository, cartRepository, sut } = makeSut();
     const req = { product_id: 'any-id', price_id: 'invalid-id' };
     productRepository.findById = jest.fn((id) =>
-      Promise.resolve(productObjectRepository)
+      Promise.resolve(productObjectRepositoryFixture)
     );
 
     const promise = sut.execute(req);
