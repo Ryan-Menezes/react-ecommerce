@@ -7,7 +7,6 @@ const makeProductRepositoryMock = () => {
   const productRepository: jest.Mocked<ProductRepository> = {
     getAll: jest.fn(),
     findById: jest.fn(),
-    findByCategory: jest.fn(),
   };
 
   return {
