@@ -12,6 +12,7 @@ export interface Price extends Entity {
 export interface Product extends Entity {
   readonly name: string;
   readonly description?: string;
+  readonly defaultPrice?: Price;
   readonly images: Image[];
   readonly prices: Price[];
 }
