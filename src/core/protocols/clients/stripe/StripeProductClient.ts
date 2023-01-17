@@ -1,10 +1,16 @@
 import Stripe from 'stripe';
 
+export type StripeProductClientParams = {
+  search?: string;
+  limit?: number;
+};
 export type StripeProductClientResponse = Stripe.Product;
 export type StripePriceClientResponse = Stripe.Price;
 
 export interface StripeProductClient {
-  getProducts(): Promise<StripeProductClientResponse[]>;
+  getProducts(
+    params: StripeProductClientParams
+  ): Promise<StripeProductClientResponse[]>;
   getProduct(product_id: string): Promise<StripeProductClientResponse | null>;
   getPricesTo(product_id: string): Promise<StripePriceClientResponse[]>;
 }
@@ -18,15 +24,27 @@ export class StripeProductClient implements StripeProductClient {
     });
   }
 
-  public async getProducts(
-    limit: number = 10
-  ): Promise<StripeProductClientResponse[]> {
-    const products = await this.stripe.products.list({
+  public async getProducts({
+    search,
+    limit,
+  }: StripeProductClientParams = {}): Promise<StripeProductClientResponse[]> {
+    limit = limit ?? 10;
+
+    if (search) {
+      const { data } = await this.stripe.products.search({
+        query: `active:\'true\' AND name:\'${search}\'`,
+        limit,
+      });
+
+      return data;
+    }
+
+    const { data } = await this.stripe.products.list({
       active: true,
       limit,
     });
 
-    return products.data;
+    return data;
   }
 
   public async getProduct(

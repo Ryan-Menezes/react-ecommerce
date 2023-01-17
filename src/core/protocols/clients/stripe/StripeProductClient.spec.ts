@@ -9,10 +9,11 @@ const makeSut = () => {
 };
 
 describe('StripeProductClient', () => {
+  const stripeProductId = 'planreward';
   const stripeProductApi = {
     id: expect.any(String),
     object: expect.any(String),
-    active: expect.any(Boolean),
+    active: true,
     attributes: expect.any(Array),
     created: expect.any(Number),
     default_price: null,
@@ -36,13 +37,34 @@ describe('StripeProductClient', () => {
     const products = await stripeProduct.getProducts();
 
     expect(products).toEqual(expect.arrayContaining([stripeProductApi]));
+    expect(products.length).toBeLessThanOrEqual(10);
+  });
+
+  it('should search for all products that match the search', async () => {
+    const { stripeProduct } = makeSut();
+    const products = await stripeProduct.getProducts({
+      search: 'Gold',
+    });
+
+    expect(products).toEqual(
+      expect.arrayContaining([
+        {
+          ...stripeProductApi,
+          name: 'Gold Special',
+        },
+      ])
+    );
+    expect(products.length).toBeLessThanOrEqual(10);
   });
 
   it('should find product by id', async () => {
     const { stripeProduct } = makeSut();
-    const product = await stripeProduct.getProduct('planreward');
+    const product = await stripeProduct.getProduct(stripeProductId);
 
-    expect(product).toEqual(stripeProductApi);
+    expect(product).toEqual({
+      ...stripeProductApi,
+      id: stripeProductId,
+    });
   });
 
   it("should return null if product doesn't exist", async () => {
@@ -54,7 +76,7 @@ describe('StripeProductClient', () => {
 
   it('should get all prices to product', async () => {
     const { stripeProduct } = makeSut();
-    const prices = await stripeProduct.getPricesTo('planreward');
+    const prices = await stripeProduct.getPricesTo(stripeProductId);
 
     expect(prices).toEqual(expect.any(Array));
   });
