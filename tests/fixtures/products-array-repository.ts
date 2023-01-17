@@ -1,44 +1,14 @@
+import productArrayRepositoryFixture from './product-object-repository';
+
 export default [
   {
-    id: 'any-id',
+    ...productArrayRepositoryFixture,
+    id: '123',
     name: 'shirt',
-    description: 'any-description',
-    defaultPrice: {
-      id: 'any-id',
-      value: 15.5,
-    },
-    images: [
-      {
-        name: 'any-name',
-        url: 'http://domain.com/any-image.png',
-      },
-    ],
-    prices: [
-      {
-        id: 'any-id',
-        value: 15.5,
-      },
-    ],
   },
   {
-    id: 'any-id',
+    ...productArrayRepositoryFixture,
+    id: '456',
     name: 'shoe',
-    description: 'any-description',
-    defaultPrice: {
-      id: 'any-id',
-      value: 15.5,
-    },
-    images: [
-      {
-        name: 'any-name',
-        url: 'http://domain.com/any-image.png',
-      },
-    ],
-    prices: [
-      {
-        id: 'any-id',
-        value: 15.5,
-      },
-    ],
   },
 ];

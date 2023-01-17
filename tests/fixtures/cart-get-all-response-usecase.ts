@@ -1,12 +1,12 @@
-import cartItemObjectRepository from './cart-item-object-repository';
+import cartItemObjectRepositoryFixture from './cart-item-object-repository';
 
 const cartItem1 = {
-  ...cartItemObjectRepository,
+  ...cartItemObjectRepositoryFixture,
   id: '123',
 };
 
 const cartItem2 = {
-  ...cartItemObjectRepository,
+  ...cartItemObjectRepositoryFixture,
   id: '456',
 };
 

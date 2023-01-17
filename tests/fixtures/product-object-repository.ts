@@ -18,4 +18,5 @@ export default {
       value: 15.5,
     },
   ],
+  metadata: {},
 };
