@@ -15,9 +15,8 @@ export interface MetaData {
 
 export interface Product extends Entity {
   readonly name: string;
-  readonly description?: string;
-  readonly defaultPrice?: Price;
+  readonly description: string | null;
+  readonly price: Price | null;
   readonly images: Image[];
-  readonly prices: Price[];
   readonly metadata: MetaData;
 }

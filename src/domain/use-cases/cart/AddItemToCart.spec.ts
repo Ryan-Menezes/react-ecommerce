@@ -1,7 +1,6 @@
 import { ProductRepository, CartRepository } from '@src/domain/repositories';
 import { AddItemToCart } from '@src/domain/use-cases/cart';
-import { ProductNotFoundError } from '@src/errors';
-import { PriceNotFoundError } from '@src/errors/PriceNotFoundError';
+import { ProductNotFoundError, ProductNotAvailableError } from '@src/errors';
 import cartItemObjectRepositoryFixture from '@tests/fixtures/cart-item-object-repository';
 import productObjectRepositoryFixture from '@tests/fixtures/product-object-repository';
 
@@ -41,7 +40,7 @@ const makeSut = () => {
 describe('AddItemToCart', () => {
   it('should add item to cart', async () => {
     const { productRepository, cartRepository, sut } = makeSut();
-    const req = { product_id: 'any-id', price_id: 'any-id' };
+    const req = { product_id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
       Promise.resolve(productObjectRepositoryFixture)
     );
@@ -57,7 +56,7 @@ describe('AddItemToCart', () => {
 
   it('should add the quantity plus 1, if the item already exists in the cart', async () => {
     const { productRepository, cartRepository, sut } = makeSut();
-    const req = { product_id: 'any-id', price_id: 'any-id' };
+    const req = { product_id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
       Promise.resolve(productObjectRepositoryFixture)
     );
@@ -71,7 +70,7 @@ describe('AddItemToCart', () => {
     expect(productRepository.findById).toBeCalledWith(req.product_id);
     expect(cartRepository.updateItemQuantity).toBeCalledTimes(1);
     expect(cartRepository.updateItemQuantity).toBeCalledWith(
-      `${req.product_id}-${req.price_id}`,
+      `${req.product_id}-any-id`,
       3
     );
     expect(cartRepository.addItem).toBeCalledTimes(0);
@@ -79,7 +78,7 @@ describe('AddItemToCart', () => {
 
   it("Should throw an error if the product doesn't exist", async () => {
     const { productRepository, cartRepository, sut } = makeSut();
-    const req = { product_id: 'invalid-id', price_id: 'any-id' };
+    const req = { product_id: 'invalid-id' };
     productRepository.findById = jest.fn((id) => Promise.resolve(null));
 
     const promise = sut.execute(req);
@@ -91,16 +90,19 @@ describe('AddItemToCart', () => {
     expect(cartRepository.addItem).toBeCalledTimes(0);
   });
 
-  it("Should throw an error if the price doesn't exist", async () => {
+  it('Should throw an error if the product price is null', async () => {
     const { productRepository, cartRepository, sut } = makeSut();
-    const req = { product_id: 'any-id', price_id: 'invalid-id' };
+    const req = { product_id: 'any-id' };
     productRepository.findById = jest.fn((id) =>
-      Promise.resolve(productObjectRepositoryFixture)
+      Promise.resolve({
+        ...productObjectRepositoryFixture,
+        price: null,
+      })
     );
 
     const promise = sut.execute(req);
 
-    await expect(promise).rejects.toThrow(PriceNotFoundError);
+    await expect(promise).rejects.toThrow(ProductNotAvailableError);
     expect(productRepository.findById).toBeCalledTimes(1);
     expect(productRepository.findById).toBeCalledWith(req.product_id);
     expect(cartRepository.updateItemQuantity).toBeCalledTimes(0);
