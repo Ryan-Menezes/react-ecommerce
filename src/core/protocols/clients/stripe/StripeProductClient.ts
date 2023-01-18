@@ -4,8 +4,8 @@ export type StripeProductClientParams = {
   search?: string;
   limit?: number;
 };
-export type StripeProductClientResponse = Stripe.Product;
-export type StripePriceClientResponse = Stripe.Price;
+export interface StripeProductClientResponse extends Stripe.Product {}
+export interface StripePriceClientResponse extends Stripe.Price {}
 
 export interface StripeProductClient {
   getProducts(
