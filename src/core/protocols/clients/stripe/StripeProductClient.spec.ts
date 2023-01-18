@@ -9,6 +9,7 @@ const makeSut = () => {
 };
 
 describe('StripeProductClient', () => {
+  const stripePriceId = 'price_1MEcQJJxRPM20N1wz2ahDfzl';
   const stripeProductId = 'planreward';
   const stripeProductApi = {
     id: expect.any(String),
@@ -30,6 +31,28 @@ describe('StripeProductClient', () => {
     unit_label: null,
     updated: expect.any(Number),
     url: null,
+  };
+
+  const stripePriceApi = {
+    id: stripePriceId,
+    object: expect.any(String),
+    active: true,
+    billing_scheme: expect.any(String),
+    created: expect.any(Number),
+    currency: expect.any(String),
+    custom_unit_amount: null,
+    livemode: expect.any(Boolean),
+    lookup_key: null,
+    metadata: expect.any(Object),
+    nickname: null,
+    product: expect.any(String),
+    recurring: expect.any(Object),
+    tax_behavior: expect.any(String),
+    tiers_mode: null,
+    transform_quantity: null,
+    type: 'one_time',
+    unit_amount: expect.any(Number),
+    unit_amount_decimal: expect.any(String),
   };
 
   it('should get all products', async () => {
@@ -74,10 +97,34 @@ describe('StripeProductClient', () => {
     expect(product).toEqual(null);
   });
 
-  it('should get all prices to product', async () => {
+  it('should find price by id', async () => {
     const { stripeProduct } = makeSut();
-    const prices = await stripeProduct.getPricesTo(stripeProductId);
+    const price = await stripeProduct.getPrice(
+      'prod_MyZZJyNW7NNoSr',
+      stripePriceId
+    );
 
-    expect(prices).toEqual(expect.any(Array));
+    expect(price).toEqual({
+      ...stripePriceApi,
+      id: stripePriceId,
+      product: 'prod_MyZZJyNW7NNoSr',
+    });
+  });
+
+  it('should return null if price is not related to a product', async () => {
+    const { stripeProduct } = makeSut();
+    const price = await stripeProduct.getPrice('invalid-id', stripePriceId);
+
+    expect(price).toEqual(null);
+  });
+
+  it("should return null if price doesn't exist", async () => {
+    const { stripeProduct } = makeSut();
+    const price = await stripeProduct.getPrice(
+      'prod_MyZZJyNW7NNoSr',
+      'invalid-id'
+    );
+
+    expect(price).toEqual(null);
   });
 });

@@ -1,11 +1,9 @@
 import { EntityId } from '@src/domain/entities';
 import { ProductRepository, CartRepository } from '@src/domain/repositories';
-import { ProductNotFoundError } from '@src/errors';
-import { PriceNotFoundError } from '@src/errors/PriceNotFoundError';
+import { ProductNotFoundError, ProductNotAvailableError } from '@src/errors';
 
 export interface AddItemToCartRequest {
   product_id: EntityId;
-  price_id: EntityId;
 }
 
 export class AddItemToCart {
@@ -14,10 +12,7 @@ export class AddItemToCart {
     private readonly cartRepository: CartRepository
   ) {}
 
-  public async execute({
-    product_id,
-    price_id,
-  }: AddItemToCartRequest): Promise<void> {
+  public async execute({ product_id }: AddItemToCartRequest): Promise<void> {
     const product = await this.productRepository.findById(product_id);
     if (product === null) {
       throw new ProductNotFoundError(
@@ -25,14 +20,11 @@ export class AddItemToCart {
       );
     }
 
-    const price = product.prices.find((price) => price.id === price_id);
-    if (price === undefined) {
-      throw new PriceNotFoundError(
-        'This price is not available for this product'
-      );
+    if (product.price === null) {
+      throw new ProductNotAvailableError('This product is not available');
     }
 
-    const id = `${product.id}-${price.id}`;
+    const id = `${product.id}-${product.price.id}`;
     const item = await this.cartRepository.findById(id);
 
     if (item !== null) {
@@ -47,7 +39,7 @@ export class AddItemToCart {
         id: product.id,
         name: product.name,
         image: product.images[0],
-        price,
+        price: product.price,
         quantity: 1,
       },
     });

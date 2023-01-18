@@ -11,8 +11,11 @@ export interface StripeProductClient {
   getProducts(
     params: StripeProductClientParams
   ): Promise<StripeProductClientResponse[]>;
-  getProduct(product_id: string): Promise<StripeProductClientResponse | null>;
-  getPricesTo(product_id: string): Promise<StripePriceClientResponse[]>;
+  getProduct(id: string): Promise<StripeProductClientResponse | null>;
+  getPrice(
+    product_id: string,
+    price_id: string
+  ): Promise<StripePriceClientResponse | null>;
 }
 
 export class StripeProductClient implements StripeProductClient {
@@ -51,22 +54,37 @@ export class StripeProductClient implements StripeProductClient {
     id: string
   ): Promise<StripeProductClientResponse | null> {
     try {
-      const product = await this.stripe.products.retrieve(id);
-      return product;
-    } catch (error) {
+      const {
+        data: [product],
+      } = await this.stripe.products.list({
+        ids: [id],
+        active: true,
+        limit: 1,
+      });
+
+      return product ? product : null;
+    } catch {
       return null;
     }
   }
 
-  public async getPricesTo(id: string): Promise<StripePriceClientResponse[]> {
-    const prices = await this.stripe.prices.list({
-      product: id,
-      active: true,
-      limit: 100,
-      currency: 'usd',
-      type: 'one_time',
-    });
+  public async getPrice(
+    product_id: string,
+    price_id: string
+  ): Promise<StripePriceClientResponse | null> {
+    try {
+      const { data } = await this.stripe.prices.list({
+        product: product_id,
+        active: true,
+        type: 'one_time',
+        limit: 100,
+      });
 
-    return prices.data;
+      const price = data.find((price) => price.id === price_id);
+
+      return price ? price : null;
+    } catch {
+      return null;
+    }
   }
 }
