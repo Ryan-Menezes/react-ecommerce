@@ -7,6 +7,7 @@ export interface Image {
 
 export interface Price extends Entity {
   readonly value: number;
+  readonly currency: string;
 }
 
 export interface MetaData {

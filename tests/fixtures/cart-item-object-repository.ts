@@ -10,6 +10,7 @@ export default {
     price: {
       id: 'any-id',
       value: 15.5,
+      currency: 'usd',
     },
     quantity: 2,
   },

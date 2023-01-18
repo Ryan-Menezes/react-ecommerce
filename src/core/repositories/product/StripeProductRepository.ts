@@ -73,6 +73,7 @@ export class StripeProductRepository implements ProductRepository {
     return {
       id: price.id,
       value: price.unit_amount,
+      currency: price.currency,
     };
   }
 }
