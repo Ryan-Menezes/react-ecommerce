@@ -6,6 +6,13 @@
   box-sizing: border-box
   font-family: variables.$default-font
 
+  &::selection
+    background-color: variables.$primary-color
+    color: white
+
+body, main
+  min-height: 100vh
+
 .container
   max-width: 1000px
   margin: 0 auto
@@ -15,3 +22,22 @@ a
   text-decoration: none
   color: variables.$link-color
   transition-duration: .3s
+  font-size: 14px
+
+p
+  color: variables.$text-color
+
+h1, h2, h3, h4, h5, h6
+  color: variables.$title-color
+
+.btn
+  padding: 15px 20px
+  font-size: 14px
+  border-radius: 5px
+  transition-duration: 0.3s
+  background-color: variables.$primary-color
+  color: white
+  text-align: center
+
+  &:hover
+    transform: scale(1.1)

@@ -1,5 +1,11 @@
 import './style.sass';
 
 export function Footer() {
-  return <footer>OK</footer>;
+  return (
+    <footer className="footer">
+      <div className="container">
+        <p>E-commerce &copy; {new Date().getFullYear()}</p>
+      </div>
+    </footer>
+  );
 }

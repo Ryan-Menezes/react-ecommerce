@@ -4,8 +4,8 @@ import './style.sass';
 
 export function Header() {
   return (
-    <header class="header">
-      <div class="container">
+    <header className="header">
+      <div className="container">
         <Link to="/">
           <img src="/vite.svg" alt="Ecommerce" />
         </Link>

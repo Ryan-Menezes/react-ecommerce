@@ -4,7 +4,7 @@ import './style.sass';
 
 export function Navbar() {
   return (
-    <nav class="navbar">
+    <nav className="navbar">
       <ul>
         <li>
           <Link to="/">Home</Link>

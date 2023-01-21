@@ -6,7 +6,11 @@ export function App() {
   return (
     <>
       <Header />
-      <Outlet />
+
+      <main className="container">
+        <Outlet />
+      </main>
+
       <Footer />
     </>
   );
