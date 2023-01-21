@@ -13,6 +13,9 @@
   },
   "dependencies": {
     "preact": "^10.11.3",
+    "react-icons": "^4.7.1",
+    "react-router-dom": "^6.7.0",
+    "sass": "^1.57.1",
     "stripe": "^11.6.0",
     "uuid": "^9.0.0"
   },

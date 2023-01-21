@@ -1,5 +1,30 @@
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { render } from 'preact';
-import { App } from './app';
-import './index.css';
+import { App } from './App';
+import { Home, Product, Products } from './pages';
+import './index.sass';
 
-render(<App />, document.getElementById('app') as HTMLElement);
+const router = createBrowserRouter([
+  {
+    element: <App />,
+    children: [
+      {
+        path: '/',
+        element: <Home />,
+      },
+      {
+        path: '/products',
+        element: <Products />,
+      },
+      {
+        path: '/products/:id',
+        element: <Product />,
+      },
+    ],
+  },
+]);
+
+render(
+  <RouterProvider router={router} />,
+  document.getElementById('app') as HTMLElement
+);

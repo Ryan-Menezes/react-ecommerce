@@ -1,0 +1,25 @@
+@use '../../styles/variables'
+
+.navbar
+  display: flex
+  align-items: center
+  justify-content: flex-end
+
+  ul
+    display: flex
+    align-items: center
+    justify-content: flex-end
+
+    li
+      display: flex
+      align-items: center
+      justify-content: center
+      padding: 0 20px
+      font-size: 14px
+
+      &:last-child
+        padding-right: 0
+
+      a:hover
+        color: variables.$primary-color
+
