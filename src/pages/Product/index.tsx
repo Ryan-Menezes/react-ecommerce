@@ -16,7 +16,7 @@ export function Product() {
       perView: 4,
       spacing: 10,
     },
-  })
+  });
 
   return (
     <>

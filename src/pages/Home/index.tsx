@@ -11,7 +11,7 @@ export function Home() {
         spacing: 48,
       },
     },
-    [],
+    []
   );
 
   return (
