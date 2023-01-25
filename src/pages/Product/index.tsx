@@ -1,9 +1,22 @@
+import {
+  useKeenSlider,
+  KeenSliderPlugin,
+  KeenSliderInstance,
+} from 'keen-slider/react';
 import { HiShoppingCart } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
 import './style.sass';
 
 export function Product() {
   const { id } = useParams();
+
+  const [sliderRef] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 4,
+      spacing: 10,
+    },
+  })
 
   return (
     <>
@@ -13,6 +26,29 @@ export function Product() {
             src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
             alt=""
           />
+
+          <div ref={sliderRef} className="keen-slider thumbnail">
+            <img
+              className="keen-slider__slide"
+              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
+              alt=""
+            />
+            <img
+              className="keen-slider__slide"
+              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
+              alt=""
+            />
+            <img
+              className="keen-slider__slide"
+              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
+              alt=""
+            />
+            <img
+              className="keen-slider__slide"
+              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
+              alt=""
+            />
+          </div>
         </div>
         <div className="product-show-content" data-aos="fade-left">
           <h1 className="product-show-title">

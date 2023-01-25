@@ -1,9 +1,8 @@
 import { Outlet } from 'react-router-dom';
 import { Header, Footer } from './components';
 
-// OWL CAROUSEL
-import 'owl.carousel/dist/assets/owl.carousel.css';
-import 'owl.carousel/dist/assets/owl.theme.default.css';
+// KEEN-SLIDER
+import 'keen-slider/keen-slider.min.css';
 
 // AOS
 import AOS from 'aos';

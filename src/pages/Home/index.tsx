@@ -1,15 +1,37 @@
-import OwlCarousel from 'react-owl-carousel';
+import { useKeenSlider } from 'keen-slider/react';
 import { Banner, ProductCard } from '../../components';
 import './style.sass';
 
 export function Home() {
+  const [sliderRef] = useKeenSlider(
+    {
+      loop: true,
+      slides: {
+        perView: 1,
+        spacing: 48,
+      },
+    },
+    [],
+  );
+
   return (
     <>
-      <Banner
-        title="Lorem ipsum dolor sit amet consectetur."
-        description="Qui omnis doloremque quam quidem pariatur consequatur sint fuga odio totam labore! Accusamus doloremque cumque quibusdam."
-        image="/assets/imgs/shoe-banner.png"
-      />
+      <div ref={sliderRef} className="keen-slider">
+        <div className="keen-slider__slide">
+          <Banner
+            title="Lorem ipsum dolor sit amet consectetur."
+            description="Qui omnis doloremque quam quidem pariatur consequatur sint fuga odio totam labore! Accusamus doloremque cumque quibusdam."
+            image="/assets/imgs/shoe-banner.png"
+          />
+        </div>
+        <div className="keen-slider__slide">
+          <Banner
+            title="Lorem ipsum dolor sit amet consectetur."
+            description="Qui omnis doloremque quam quidem pariatur consequatur sint fuga odio totam labore! Accusamus doloremque cumque quibusdam."
+            image="/assets/imgs/shoe-banner.png"
+          />
+        </div>
+      </div>
 
       <div className="product-list" data-aos="fade-up">
         <ProductCard
