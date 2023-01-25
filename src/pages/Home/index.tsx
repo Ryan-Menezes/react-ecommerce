@@ -1,3 +1,4 @@
+import OwlCarousel from 'react-owl-carousel';
 import { Banner, ProductCard } from '../../components';
 import './style.sass';
 
@@ -10,7 +11,7 @@ export function Home() {
         image="/assets/imgs/shoe-banner.png"
       />
 
-      <div className="product-list">
+      <div className="product-list" data-aos="fade-up">
         <ProductCard
           id="1"
           title="iPhone 11 Apple 64GB Preto 6,1” 12MP iOS"

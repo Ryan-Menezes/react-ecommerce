@@ -11,7 +11,7 @@
     color: white
 
 body, main
-  min-height: 100vh
+  min-height: 80vh
 
 .container
   max-width: 1000px
@@ -31,6 +31,9 @@ h1, h2, h3, h4, h5, h6
   color: variables.$title-color
 
 .btn
+  display: flex
+  align-items: center
+  justify-content: center
   padding: 15px 20px
   font-size: 14px
   border-radius: 5px
@@ -38,9 +41,14 @@ h1, h2, h3, h4, h5, h6
   background-color: variables.$primary-color
   color: white
   text-align: center
+  border: none
+  cursor: pointer
 
   &:hover
     transform: scale(1.1)
+
+  svg
+    margin-left: 5px
 
 .product-list
   display: grid
