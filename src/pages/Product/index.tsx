@@ -1,14 +1,19 @@
-import {
-  useKeenSlider,
-  KeenSliderPlugin,
-  KeenSliderInstance,
-} from 'keen-slider/react';
+import { useState } from 'react';
+import { useKeenSlider } from 'keen-slider/react';
 import { HiShoppingCart } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
+import { InputQuantity } from '../../components';
 import './style.sass';
 
 export function Product() {
   const { id } = useParams();
+  const [quantity, setQuantity] = useState<number>(1);
+
+  const changeQuantity = (value: number) => {
+    if (value > 0) {
+      setQuantity(value);
+    }
+  };
 
   const [sliderRef] = useKeenSlider({
     loop: true,
@@ -61,6 +66,9 @@ export function Product() {
             Molestias quis cum rem temporibus beatae ullam consequuntur neque
             dolores accusantium, laboriosam repellendus quasi!
           </p>
+
+          <InputQuantity value={quantity} changeQuantity={changeQuantity} />
+
           <button className="btn">
             Add to cart <HiShoppingCart />
           </button>

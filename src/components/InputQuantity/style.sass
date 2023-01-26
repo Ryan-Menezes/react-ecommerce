@@ -1,0 +1,40 @@
+@use '../../styles/variables'
+
+.label-quantity
+  font-weight: bold
+  color: rgba(0, 0, 0, 0.8)
+
+.input-quantity
+  display: grid
+  grid-template-columns: 35px 50px 35px
+  align-items: center
+  margin-top: 10px
+
+  button
+    height: 100%
+    border: none
+    cursor: pointer
+    display: flex
+    align-items: center
+    justify-content: center
+    background-color: rgba(0, 0, 0, 0.2)
+    border-radius: 5px
+
+    &:focus
+      outline: 1px solid variables.$primary-color
+
+  .btn-sub
+    border-top-right-radius: 0px
+    border-bottom-right-radius: 0px
+
+  .btn-plus
+    border-top-left-radius: 0px
+    border-bottom-left-radius: 0px
+
+  input
+    padding: 10px 15px
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    text-align: center
+
+    &:focus
+      outline: 1px solid variables.$primary-color

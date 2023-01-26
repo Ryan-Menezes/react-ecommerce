@@ -8,7 +8,7 @@ export function Home() {
       loop: true,
       slides: {
         perView: 1,
-        spacing: 48,
+        spacing: 20,
       },
     },
     []
