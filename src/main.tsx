@@ -2,11 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { App } from './App';
-import { Home, Product, Products } from './pages';
+import { Error, Home, Product, Products } from './pages';
 import './index.sass';
 
 const router = createBrowserRouter([
   {
+    errorElement: <Error />,
     element: <App />,
     children: [
       {
