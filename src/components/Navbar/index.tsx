@@ -1,4 +1,3 @@
-import { HiShoppingCart } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import './style.sass';
 
@@ -11,11 +10,6 @@ export function Navbar() {
         </li>
         <li>
           <Link to="/products">Products</Link>
-        </li>
-        <li>
-          <Link to="/">
-            <HiShoppingCart />
-          </Link>
         </li>
       </ul>
     </nav>

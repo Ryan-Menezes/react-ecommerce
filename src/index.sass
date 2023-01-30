@@ -11,6 +11,9 @@
     background-color: variables.$primary-color
     color: white
 
+body
+  background-color: rgba(0, 0, 0, 0.01)
+
 body, main
   min-height: 80vh
 
@@ -51,8 +54,29 @@ h1, h2, h3, h4, h5, h6
   svg
     margin-left: 5px
 
-.product-list
-  display: grid
-  grid-template-columns: repeat(3, 1fr)
-  gap: 10px
-  margin-top: 40px
+@for $i from 1 to 5
+  .grid-#{$i}
+    grid-template-columns: repeat($i, 1fr)
+
+.form
+  display: flex
+  flex-direction: column
+
+  &-label
+    font-weight: bold
+    color: variables.$text-color
+    font-size: 15px
+    margin-bottom: 5px
+
+  &-group
+    display: flex
+    flex-direction: column
+
+  &-control
+    padding: 10px 15px
+    border: 1px solid rgba(0, 0, 0, 0.1)
+    border-radius: 5px
+    color: variables.$text-color
+
+    &:focus
+      border-color: variables.$primary-color

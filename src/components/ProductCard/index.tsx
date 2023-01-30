@@ -4,13 +4,17 @@ import './style.sass';
 
 export interface ProductCardProps {
   id: EntityId;
-  title: string;
-  price: number;
-  image: string;
+  name: string;
+  price: number | null;
+  image: string | null;
 }
 
-export function ProductCard({ id, title, price, image }: ProductCardProps) {
-  const formatPrice = (price: number): string => {
+export function ProductCard({ id, name, price, image }: ProductCardProps) {
+  const formatPrice = (price: number | null): string => {
+    if (price === null) {
+      return 'Product unavailable';
+    }
+
     return price.toLocaleString('pt-BR', {
       style: 'currency',
       currency: 'BRL',
@@ -18,13 +22,16 @@ export function ProductCard({ id, title, price, image }: ProductCardProps) {
   };
 
   return (
-    <Link to={`/products/${id}`} title={title}>
+    <Link to={`/products/${id}`} title={name}>
       <div className="product-card">
         <div className="product-card-image">
-          <img src={image} alt={title} />
+          <img
+            src={image || '/assets/imgs/product-not-available.png'}
+            alt={name}
+          />
         </div>
         <div className="product-card-content">
-          <h3 className="product-card-title">{title}</h3>
+          <h3 className="product-card-title">{name}</h3>
           <p className="product-card-price">
             <strong>{formatPrice(price)}</strong>
           </p>
