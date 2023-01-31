@@ -1,4 +1,5 @@
 import { useKeenSlider } from 'keen-slider/react';
+import { Link } from 'react-router-dom';
 import { Banner, ProductList } from '../../components';
 import './style.sass';
 
@@ -33,6 +34,8 @@ export function Home() {
         </div>
       </div>
 
+      <h2 className="page-title">Our products</h2>
+
       <ProductList
         products={[
           {
@@ -51,6 +54,26 @@ export function Home() {
           },
           {
             id: '3',
+            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
+            price: 3161.99,
+            image: null,
+          },
+          {
+            id: '4',
+            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
+            price: 3161.99,
+            image:
+              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
+          },
+          {
+            id: '5',
+            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
+            price: 3161.99,
+            image:
+              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
+          },
+          {
+            id: '6',
             name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
             price: 3161.99,
             image: null,

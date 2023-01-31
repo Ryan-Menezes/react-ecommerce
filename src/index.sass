@@ -22,6 +22,20 @@ body, main
   margin: 0 auto
   padding: 0 20px
 
+.page-title
+  font-size: 30px
+  position: relative
+  margin-top: 50px
+
+  &:after
+    content: ''
+    width: 50px
+    height: 5px
+    background-color: red
+    position: absolute
+    top: 20px
+    margin-left: 10px
+
 a
   text-decoration: none
   color: variables.$link-color
