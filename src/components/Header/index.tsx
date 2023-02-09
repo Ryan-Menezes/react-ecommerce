@@ -10,7 +10,7 @@ export function Header() {
       <header className="header">
         <div className="container">
           <Link to="/">
-            <img src="/vite.svg" alt="Ecommerce" />
+            <img src="/assets/imgs/logo.png" alt="Ecommerce" />
           </Link>
 
           <FormSearch />

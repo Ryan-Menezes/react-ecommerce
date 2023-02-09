@@ -17,7 +17,7 @@ export class ApiProductRepository implements ProductRepository {
 
   public constructor() {
     this.request = axios.create({
-      baseURL: process.env.ECOMMERCE_API_URL,
+      baseURL: import.meta.env.VITE_ECOMMERCE_API_URL,
       timeout: 1000,
       headers: {
         'Content-Type': 'application/json',

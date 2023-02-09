@@ -1,18 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import { HiShoppingCart } from 'react-icons/hi';
 import { useParams } from 'react-router-dom';
-import { InputQuantity } from '../../components';
+import { InputQuantity, Load } from '../../components';
+import { Product as ProductEntity } from '../../domain/entities';
+import { ProductRepository } from '../../domain/repositories';
 import './style.sass';
 
-export function Product() {
+export interface ProductProps {
+  productRepository: ProductRepository;
+}
+
+export function Product({ productRepository }: ProductProps) {
   const { id } = useParams();
+  const [product, setProduct] = useState<ProductEntity | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
+
+  const formatPrice = (price: number | null): string => {
+    if (price === null) {
+      return 'Product unavailable';
+    }
+
+    return price.toLocaleString('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    });
+  };
 
   const changeQuantity = (value: number) => {
     if (value > 0) {
       setQuantity(value);
     }
+  };
+
+  const getProduct = async () => {
+    const product = await productRepository.findById(id as string);
+    setProduct(product);
   };
 
   const [sliderRef] = useKeenSlider({
@@ -23,57 +46,61 @@ export function Product() {
     },
   });
 
+  useEffect(() => {
+    getProduct();
+  }, []);
+
   return (
     <>
-      <div className="product-show">
-        <div className="product-show-images" data-aos="fade-right">
-          <img
-            src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
-            alt=""
-          />
+      {product && (
+        <div className="product-show">
+          <div className="product-show-images" data-aos="fade-right">
+            <img
+              src={
+                product.images[0]?.url ||
+                '/assets/imgs/product-not-available.png'
+              }
+              alt=""
+            />
 
-          <div ref={sliderRef} className="keen-slider thumbnail">
-            <img
-              className="keen-slider__slide"
-              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
-              alt=""
-            />
-            <img
-              className="keen-slider__slide"
-              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
-              alt=""
-            />
-            <img
-              className="keen-slider__slide"
-              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
-              alt=""
-            />
-            <img
-              className="keen-slider__slide"
-              src="https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg"
-              alt=""
-            />
+            <div ref={sliderRef} className="keen-slider thumbnail">
+              {product.images.map((image) => (
+                <img src={image.url} alt={image.url} />
+              ))}
+            </div>
+          </div>
+          <div className="product-show-content" data-aos="fade-left">
+            <h1 className="product-show-title">{product.name}</h1>
+
+            <p className="product-show-price">
+              {formatPrice(product.price?.value || null)}
+            </p>
+
+            {product.description && (
+              <p className="product-show-description">{product.description}</p>
+            )}
+
+            {product.price && (
+              <>
+                <InputQuantity
+                  value={quantity}
+                  changeQuantity={changeQuantity}
+                />
+
+                <button className="btn">
+                  Add to cart <HiShoppingCart />
+                </button>
+              </>
+            )}
           </div>
         </div>
-        <div className="product-show-content" data-aos="fade-left">
-          <h1 className="product-show-title">
-            iPhone 11 Apple 64GB Preto 6,1” 12MP iOS
-          </h1>
-          <p className="product-show-price">R$ 3.161,99</p>
-          <p className="product-show-description">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dicta
-            praesentium officia consequatur ipsam eveniet at provident!
-            Molestias quis cum rem temporibus beatae ullam consequuntur neque
-            dolores accusantium, laboriosam repellendus quasi!
-          </p>
+      )}
 
-          <InputQuantity value={quantity} changeQuantity={changeQuantity} />
-
-          <button className="btn">
-            Add to cart <HiShoppingCart />
-          </button>
-        </div>
-      </div>
+      {product === null && (
+        <section style={{ marginTop: '40px' }}>
+          <Load />
+        </section>
+      )}
     </>
   );
 }

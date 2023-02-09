@@ -1,9 +1,17 @@
+import { useState, useEffect } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
-import { Link } from 'react-router-dom';
-import { Banner, ProductList } from '../../components';
+import { Banner, ProductList, Load } from '../../components';
+import { Product } from '../../domain/entities';
+import { ProductRepository } from '../../domain/repositories';
 import './style.sass';
 
-export function Home() {
+export interface HomeProps {
+  productRepository: ProductRepository;
+}
+
+export function Home({ productRepository }: HomeProps) {
+  const [products, setProducts] = useState<Product[]>([]);
+
   const [sliderRef] = useKeenSlider(
     {
       loop: true,
@@ -14,6 +22,15 @@ export function Home() {
     },
     []
   );
+
+  const getAllProducts = async () => {
+    const products = await productRepository.getAll();
+    setProducts(products);
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
 
   return (
     <>
@@ -37,49 +54,15 @@ export function Home() {
       <h2 className="page-title">Our products</h2>
 
       <ProductList
-        products={[
-          {
-            id: '1',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image:
-              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
-          },
-          {
-            id: '2',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image:
-              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
-          },
-          {
-            id: '3',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image: null,
-          },
-          {
-            id: '4',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image:
-              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
-          },
-          {
-            id: '5',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image:
-              'https://a-static.mlcdn.com.br/800x560/iphone-11-apple-64gb-preto-61-12mp-ios/magazineluiza/155610500/2815c001fcdff11766fcb266dca62daf.jpg',
-          },
-          {
-            id: '6',
-            name: 'iPhone 11 Apple 64GB Preto 6,1” 12MP iOS',
-            price: 3161.99,
-            image: null,
-          },
-        ]}
+        products={products.map((p) => ({
+          id: p.id,
+          name: p.name,
+          price: p.price?.value || null,
+          image: p.images[0]?.url || null,
+        }))}
       />
+
+      {products.length === 0 && <Load />}
     </>
   );
 }

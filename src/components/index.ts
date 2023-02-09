@@ -4,3 +4,4 @@ export * from './Banner';
 export * from './InputQuantity';
 export * from './ProductCard';
 export * from './ProductList';
+export * from './Load';
