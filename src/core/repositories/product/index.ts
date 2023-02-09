@@ -1,1 +1,1 @@
-export * from './StripeProductRepository';
+export * from './ApiProductRepository';
