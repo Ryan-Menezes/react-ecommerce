@@ -5,6 +5,7 @@ import { useParams } from 'react-router-dom';
 import { InputQuantity, Load } from '../../components';
 import { Product as ProductEntity } from '../../domain/entities';
 import { ProductRepository } from '../../domain/repositories';
+import { GetProductById } from '../../domain/use-cases/product';
 import './style.sass';
 
 export interface ProductProps {
@@ -13,6 +14,7 @@ export interface ProductProps {
 
 export function Product({ productRepository }: ProductProps) {
   const { id } = useParams();
+  const [error, setError] = useState<Error | null>(null);
   const [product, setProduct] = useState<ProductEntity | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
 
@@ -34,8 +36,16 @@ export function Product({ productRepository }: ProductProps) {
   };
 
   const getProduct = async () => {
-    const product = await productRepository.findById(id as string);
-    setProduct(product);
+    try {
+      const getProductById = new GetProductById(productRepository);
+      const product = await getProductById.execute({
+        id: id as string,
+      });
+
+      setProduct(product);
+    } catch (e) {
+      setError(e as Error);
+    }
   };
 
   const [sliderRef] = useKeenSlider({
@@ -52,7 +62,7 @@ export function Product({ productRepository }: ProductProps) {
 
   return (
     <>
-      {product && (
+      {error === null && product && (
         <div className="product-show">
           <div className="product-show-images" data-aos="fade-right">
             <img
@@ -96,11 +106,13 @@ export function Product({ productRepository }: ProductProps) {
         </div>
       )}
 
-      {product === null && (
+      {error === null && product === null && (
         <section style={{ marginTop: '40px' }}>
           <Load />
         </section>
       )}
+
+      {error && <p>{error.message}</p>}
     </>
   );
 }
