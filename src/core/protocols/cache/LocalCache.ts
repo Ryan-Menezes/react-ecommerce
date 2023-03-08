@@ -1,8 +1,4 @@
-import {
-  CacheDefaultKeyType,
-  CacheDefaultValueType,
-  Cache,
-} from '@src/core/protocols/cache';
+import { CacheDefaultKeyType, CacheDefaultValueType, Cache } from '.';
 
 export class LocalCache<
   K extends CacheDefaultValueType = CacheDefaultKeyType,

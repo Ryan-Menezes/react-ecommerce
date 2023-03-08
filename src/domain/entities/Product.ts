@@ -1,4 +1,4 @@
-import { Entity } from '@src/domain/entities';
+import { Entity } from '../../domain/entities';
 
 export interface Image {
   readonly name: string;

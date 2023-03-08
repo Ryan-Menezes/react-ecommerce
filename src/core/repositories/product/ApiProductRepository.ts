@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { Product, EntityId } from '@src/domain/entities';
-import { ProductRepository } from '@src/domain/repositories';
+import { Product, EntityId } from '../../../domain/entities';
+import { ProductRepository } from '../../../domain/repositories';
 
 export interface ApiResponseProducts {
   products: Product[];

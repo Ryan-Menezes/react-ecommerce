@@ -1,6 +1,12 @@
-import { EntityId } from '@src/domain/entities';
-import { ProductRepository, CartRepository } from '@src/domain/repositories';
-import { ProductNotFoundError, ProductNotAvailableError } from '@src/errors';
+import { EntityId } from '../../../domain/entities';
+import {
+  ProductRepository,
+  CartRepository,
+} from '../../../domain/repositories';
+import {
+  ProductNotFoundError,
+  ProductNotAvailableError,
+} from '../../../errors';
 
 export interface AddItemToCartRequest {
   product_id: EntityId;
