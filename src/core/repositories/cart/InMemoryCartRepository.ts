@@ -1,7 +1,7 @@
-import { UniqueKeyGenerator } from '@src/core/protocols/generator';
-import { Cache } from '@src/core/protocols/cache';
-import { CartItem, EntityId } from '@src/domain/entities';
-import { CartItemData, CartRepository } from '@src/domain/repositories';
+import { UniqueKeyGenerator } from '../../protocols/generator';
+import { Cache } from '../../protocols/cache';
+import { CartItem, EntityId } from '../../../domain/entities';
+import { CartItemData, CartRepository } from '../../../domain/repositories';
 
 export class InMemoryCartRepository implements CartRepository {
   public constructor(

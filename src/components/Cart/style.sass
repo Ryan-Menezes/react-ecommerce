@@ -1,0 +1,21 @@
+@use '../../styles/variables'
+
+.cart
+  cursor: pointer
+  display: flex
+  align-items: center
+  justify-content: center
+  text-align: center
+  width: 40px
+  height: 40px
+  border: 1px solid rgba(0, 0, 0, 0.1)
+  border-radius: 50%
+  transition-duration: .3s
+
+  i,svg
+    font-size: 15px
+
+  &:hover
+    background-color: variables.$primary-color
+    border-color: variables.$primary-color
+    color: #fff

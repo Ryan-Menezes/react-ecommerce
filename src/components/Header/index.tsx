@@ -1,10 +1,15 @@
-import { HiShoppingCart } from 'react-icons/hi';
 import { Link } from 'react-router-dom';
 import { Navbar } from '../Navbar';
-import './style.sass';
+import { Cart } from '../Cart';
 import { FormSearch } from '../form';
+import { CartRepository } from '../../domain/repositories';
+import './style.sass';
 
-export function Header() {
+export interface HeaderProps {
+  cartRepository: CartRepository;
+}
+
+export function Header({ cartRepository }: HeaderProps) {
   return (
     <>
       <header className="header">
@@ -15,9 +20,7 @@ export function Header() {
 
           <FormSearch />
 
-          <Link to="/">
-            <HiShoppingCart />
-          </Link>
+          <Cart cartRepository={cartRepository} />
         </div>
       </header>
       <div className="header-navbar">

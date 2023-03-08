@@ -1,5 +1,5 @@
-import { CartItem } from '@src/domain/entities';
-import { CartRepository } from '@src/domain/repositories';
+import { CartItem } from '../../../domain/entities';
+import { CartRepository } from '../../../domain/repositories';
 
 export interface CartItemResponse extends CartItem {
   subtotal: number;

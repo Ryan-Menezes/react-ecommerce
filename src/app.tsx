@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header, Footer } from './components';
+import { CartRepository } from './domain/repositories';
 
 // KEEN-SLIDER
 import 'keen-slider/keen-slider.min.css';
@@ -12,10 +13,14 @@ import './App.sass';
 
 AOS.init();
 
-export function App() {
+export interface AppProps {
+  cartRepository: CartRepository;
+}
+
+export function App({ cartRepository }: AppProps) {
   return (
     <>
-      <Header />
+      <Header cartRepository={cartRepository} />
 
       <main className="container">
         <Outlet />
