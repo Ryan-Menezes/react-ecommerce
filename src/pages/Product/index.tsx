@@ -112,7 +112,7 @@ export function Product({ productRepository }: ProductProps) {
         </section>
       )}
 
-      {error && <p>{error.message}</p>}
+      {error && <p className="alert-error">{error.message}</p>}
     </>
   );
 }
