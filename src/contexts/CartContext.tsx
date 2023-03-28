@@ -18,7 +18,7 @@ export const CartContext = createContext<CartContextValue>({
 });
 
 export type CartProviderProps = {
-  children: JSX.Element[];
+  children: JSX.Element | JSX.Element[];
 };
 
 export function CartProvider({ children }: CartProviderProps) {

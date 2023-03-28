@@ -3,7 +3,7 @@ import { FaCheckCircle } from 'react-icons/fa';
 import { CartItem } from '../CartItem';
 import { Load } from '../Load';
 import { GetAllCartItems, CartItemResponse } from '../../domain/use-cases/cart';
-import { CartContext, CartContextValue } from '../../contexts/CartContext';
+import { CartContext, CartContextValue } from '../../contexts';
 import './style.sass';
 
 export function CartMenu() {

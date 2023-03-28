@@ -2,14 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { ApiProductRepository } from './core/repositories/product';
-
 import { App } from './App';
 import { Error, Home, Product, Products } from './pages';
 
 import './index.sass';
-
-const productRepository = new ApiProductRepository();
 
 const router = createBrowserRouter([
   {
@@ -18,15 +14,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Home productRepository={productRepository} />,
+        element: <Home />,
       },
       {
         path: '/products',
-        element: <Products productRepository={productRepository} />,
+        element: <Products />,
       },
       {
         path: '/products/:id',
-        element: <Product productRepository={productRepository} />,
+        element: <Product />,
       },
     ],
   },

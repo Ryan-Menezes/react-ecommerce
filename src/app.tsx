@@ -1,7 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { Header, Footer } from './components';
-import { CartRepository } from './domain/repositories';
-import { CartProvider } from './contexts/CartContext';
+import { CartProvider, ProductProvider } from './contexts';
 
 // KEEN-SLIDER
 import 'keen-slider/keen-slider.min.css';
@@ -19,9 +18,11 @@ export function App() {
     <CartProvider>
       <Header />
 
-      <main className="container">
-        <Outlet />
-      </main>
+      <ProductProvider>
+        <main className="container">
+          <Outlet />
+        </main>
+      </ProductProvider>
 
       <Footer />
     </CartProvider>

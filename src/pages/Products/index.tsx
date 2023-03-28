@@ -1,14 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { ProductList, Load } from '../../components';
 import { Product } from '../../domain/entities';
-import { ProductRepository } from '../../domain/repositories';
+import { ProductContext, ProductContextValue } from '../../contexts';
 import './style.sass';
 
-export interface ProductsProps {
-  productRepository: ProductRepository;
-}
-
-export function Products({ productRepository }: ProductsProps) {
+export function Products() {
+  const { productRepository } = useContext<ProductContextValue>(ProductContext);
   const [products, setProducts] = useState<Product[]>([]);
 
   const getAllProducts = async () => {

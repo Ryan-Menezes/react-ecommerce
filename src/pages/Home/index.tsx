@@ -1,15 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import { Banner, ProductList, Load } from '../../components';
 import { Product } from '../../domain/entities';
-import { ProductRepository } from '../../domain/repositories';
+import { ProductContext, ProductContextValue } from '../../contexts';
 import './style.sass';
 
-export interface HomeProps {
-  productRepository: ProductRepository;
-}
-
-export function Home({ productRepository }: HomeProps) {
+export function Home() {
+  const { productRepository } = useContext<ProductContextValue>(ProductContext);
   const [products, setProducts] = useState<Product[]>([]);
 
   const [sliderRef] = useKeenSlider(

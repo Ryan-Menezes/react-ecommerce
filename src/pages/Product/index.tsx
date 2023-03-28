@@ -1,18 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import { useParams } from 'react-router-dom';
 import { InputQuantity, AddToCartButton, Load } from '../../components';
 import { Product as ProductEntity } from '../../domain/entities';
-import { ProductRepository } from '../../domain/repositories';
 import { GetProductById } from '../../domain/use-cases/product';
+import { ProductContext, ProductContextValue } from '../../contexts';
 import './style.sass';
 
-export interface ProductProps {
-  productRepository: ProductRepository;
-}
-
-export function Product({ productRepository }: ProductProps) {
+export function Product() {
   const { id } = useParams();
+  const { productRepository } = useContext<ProductContextValue>(ProductContext);
+
   const [error, setError] = useState<Error | null>(null);
   const [product, setProduct] = useState<ProductEntity | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
@@ -73,12 +71,12 @@ export function Product({ productRepository }: ProductProps) {
                 product.images[0]?.url ||
                 '/assets/imgs/product-not-available.png'
               }
-              alt=""
+              alt={product.name}
             />
 
             <div ref={sliderRef} className="keen-slider thumbnail">
               {product.images.map((image) => (
-                <img src={image.url} alt={image.url} />
+                <img src={image.url} alt={image.name} />
               ))}
             </div>
           </div>
