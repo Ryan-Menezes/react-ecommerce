@@ -1,16 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { FaCheckCircle } from 'react-icons/fa';
 import { CartItem } from '../CartItem';
 import { Load } from '../Load';
-import { CartRepository } from '../../domain/repositories';
 import { GetAllCartItems, CartItemResponse } from '../../domain/use-cases/cart';
+import { CartContext, CartContextValue } from '../../contexts/CartContext';
 import './style.sass';
 
-export interface CartMenuProps {
-  cartRepository: CartRepository;
-}
+export function CartMenu() {
+  const { cartRepository } = useContext<CartContextValue>(CartContext);
 
-export function CartMenu({ cartRepository }: CartMenuProps) {
   const [error, setError] = useState<Error | null>(null);
   const [items, setItems] = useState<CartItemResponse[]>([]);
   const getAllCartItems = new GetAllCartItems(cartRepository);

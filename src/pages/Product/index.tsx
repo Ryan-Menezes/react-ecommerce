@@ -3,17 +3,15 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useParams } from 'react-router-dom';
 import { InputQuantity, AddToCartButton, Load } from '../../components';
 import { Product as ProductEntity } from '../../domain/entities';
-import { CartRepository, ProductRepository } from '../../domain/repositories';
+import { ProductRepository } from '../../domain/repositories';
 import { GetProductById } from '../../domain/use-cases/product';
-import { AddItemToCart } from '../../domain/use-cases/cart';
 import './style.sass';
 
 export interface ProductProps {
   productRepository: ProductRepository;
-  cartRepository: CartRepository;
 }
 
-export function Product({ productRepository, cartRepository }: ProductProps) {
+export function Product({ productRepository }: ProductProps) {
   const { id } = useParams();
   const [error, setError] = useState<Error | null>(null);
   const [product, setProduct] = useState<ProductEntity | null>(null);

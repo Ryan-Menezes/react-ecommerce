@@ -1,5 +1,4 @@
 import { HiShoppingCart } from 'react-icons/hi';
-import { Load } from '../Load';
 import './style.sass';
 
 export interface AddToCartButtonProps {

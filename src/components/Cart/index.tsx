@@ -1,14 +1,9 @@
 import { useState } from 'react';
 import { HiShoppingCart } from 'react-icons/hi';
 import { CartMenu } from '../CartMenu';
-import { CartRepository } from '../../domain/repositories';
 import './style.sass';
 
-export interface CartProps {
-  cartRepository: CartRepository;
-}
-
-export function Cart({ cartRepository }: CartProps) {
+export function Cart() {
   const [showCart, setShowCart] = useState<boolean>(false);
 
   const handlerSetShowCart = () => {
@@ -17,7 +12,7 @@ export function Cart({ cartRepository }: CartProps) {
 
   return (
     <>
-      {showCart && <CartMenu cartRepository={cartRepository} />}
+      {showCart && <CartMenu />}
 
       <div className="cart" onClick={handlerSetShowCart}>
         <HiShoppingCart />

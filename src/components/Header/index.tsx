@@ -2,14 +2,9 @@ import { Link } from 'react-router-dom';
 import { Navbar } from '../Navbar';
 import { Cart } from '../Cart';
 import { FormSearch } from '../form';
-import { CartRepository } from '../../domain/repositories';
 import './style.sass';
 
-export interface HeaderProps {
-  cartRepository: CartRepository;
-}
-
-export function Header({ cartRepository }: HeaderProps) {
+export function Header() {
   return (
     <>
       <header className="header">
@@ -20,7 +15,7 @@ export function Header({ cartRepository }: HeaderProps) {
 
           <FormSearch />
 
-          <Cart cartRepository={cartRepository} />
+          <Cart />
         </div>
       </header>
       <div className="header-navbar">
